@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/App.Core/App.Core.csproj" />
+    <Project Path="src/App.Data/App.Data.csproj" />
+    <Project Path="src/App.WinForms/App.WinForms.csproj" />
+  </Folder>
+</Solution>

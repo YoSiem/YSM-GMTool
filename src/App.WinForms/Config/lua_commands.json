@@ -1,0 +1,15 @@
+{
+  "playerCheck": "player_checker('{name}')",
+  "spawnMonsterAtPlayer": "spawn_monster({id}, {amount})",
+  "spawnMonsterAtCoords": "spawn_monster({id}, {amount}, {x}, {y}, {layer})",
+  "addItemToSelf": "add_item_self({itemId}, {amount}, {level}, {enhance}, {itmcode})",
+  "giveItemToPlayer": "give_item('{target}', {itemId}, {amount}, {level}, {enhance}, {itmcode})",
+  "learnSkill": "learn_skill('{target}', {skillId})",
+  "learnAllJobSkills": "learn_all_job_skills('{target}')",
+  "getBasicSkillLevel": "get_basic_skill_level('{target}', {skillId})",
+  "addBuff": "add_buff('{target}', {stateId}, {duration})",
+  "removeBuff": "remove_buff('{target}', {stateId})",
+  "setTimedWorldState": "set_timed_world_state({stateId}, {value}, {duration})",
+  "moveToNpc": "move_to_npc({npcId}, {x}, {y}, {layer})",
+  "spawnSummon": "spawn_summon({summonId}, {amount})"
+}

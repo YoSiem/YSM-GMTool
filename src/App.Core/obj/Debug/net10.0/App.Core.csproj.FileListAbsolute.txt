@@ -1,0 +1,11 @@
+C:\Users\patry\Desktop\YSM-GMTool\src\App.Core\bin\Debug\net10.0\App.Core.deps.json
+C:\Users\patry\Desktop\YSM-GMTool\src\App.Core\bin\Debug\net10.0\App.Core.dll
+C:\Users\patry\Desktop\YSM-GMTool\src\App.Core\bin\Debug\net10.0\App.Core.pdb
+C:\Users\patry\Desktop\YSM-GMTool\src\App.Core\obj\Debug\net10.0\App.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\patry\Desktop\YSM-GMTool\src\App.Core\obj\Debug\net10.0\App.Core.AssemblyInfoInputs.cache
+C:\Users\patry\Desktop\YSM-GMTool\src\App.Core\obj\Debug\net10.0\App.Core.AssemblyInfo.cs
+C:\Users\patry\Desktop\YSM-GMTool\src\App.Core\obj\Debug\net10.0\App.Core.csproj.CoreCompileInputs.cache
+C:\Users\patry\Desktop\YSM-GMTool\src\App.Core\obj\Debug\net10.0\App.Core.dll
+C:\Users\patry\Desktop\YSM-GMTool\src\App.Core\obj\Debug\net10.0\refint\App.Core.dll
+C:\Users\patry\Desktop\YSM-GMTool\src\App.Core\obj\Debug\net10.0\App.Core.pdb
+C:\Users\patry\Desktop\YSM-GMTool\src\App.Core\obj\Debug\net10.0\ref\App.Core.dll
