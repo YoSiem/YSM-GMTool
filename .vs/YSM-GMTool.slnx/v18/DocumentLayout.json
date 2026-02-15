@@ -59,14 +59,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MainForm.cs [Projekt]",
+              "Title": "MainForm.cs [Design]",
               "DocumentMoniker": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\MainForm.cs",
               "RelativeDocumentMoniker": "src\\App.WinForms\\MainForm.cs",
-              "ToolTip": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\MainForm.cs [Projekt]*",
-              "RelativeToolTip": "src\\App.WinForms\\MainForm.cs [Projekt]*",
+              "ToolTip": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\MainForm.cs [Design]",
+              "RelativeToolTip": "src\\App.WinForms\\MainForm.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-15T20:40:17.425Z",
-              "EditorCaption": " [Projekt]"
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
@@ -74,12 +74,11 @@
               "Title": "BrowserColumnDefinition.cs",
               "DocumentMoniker": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\Models\\BrowserColumnDefinition.cs",
               "RelativeDocumentMoniker": "src\\App.WinForms\\Models\\BrowserColumnDefinition.cs",
-              "ToolTip": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\Models\\BrowserColumnDefinition.cs*",
-              "RelativeToolTip": "src\\App.WinForms\\Models\\BrowserColumnDefinition.cs*",
+              "ToolTip": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\Models\\BrowserColumnDefinition.cs",
+              "RelativeToolTip": "src\\App.WinForms\\Models\\BrowserColumnDefinition.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T20:39:21.068Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T20:39:21.068Z"
             },
             {
               "$type": "Document",
@@ -91,8 +90,7 @@
               "RelativeToolTip": "src\\App.WinForms\\Presenters\\EntityBrowserPresenter.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T20:39:19.065Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T20:39:19.065Z"
             },
             {
               "$type": "Document",
@@ -104,8 +102,7 @@
               "RelativeToolTip": "src\\App.WinForms\\Presenters\\SearchIndexedRecord.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T20:39:18.246Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T20:39:18.246Z"
             },
             {
               "$type": "Document",
@@ -113,12 +110,11 @@
               "Title": "MainForm.Designer.cs",
               "DocumentMoniker": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\MainForm.Designer.cs",
               "RelativeDocumentMoniker": "src\\App.WinForms\\MainForm.Designer.cs",
-              "ToolTip": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\MainForm.Designer.cs*",
-              "RelativeToolTip": "src\\App.WinForms\\MainForm.Designer.cs*",
+              "ToolTip": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\MainForm.Designer.cs",
+              "RelativeToolTip": "src\\App.WinForms\\MainForm.Designer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T20:39:10.196Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T20:39:10.196Z"
             },
             {
               "$type": "Document",
@@ -126,12 +122,11 @@
               "Title": "MainForm.cs",
               "DocumentMoniker": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\MainForm.cs",
               "RelativeDocumentMoniker": "src\\App.WinForms\\MainForm.cs",
-              "ToolTip": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\MainForm.cs*",
-              "RelativeToolTip": "src\\App.WinForms\\MainForm.cs*",
+              "ToolTip": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\MainForm.cs",
+              "RelativeToolTip": "src\\App.WinForms\\MainForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAwAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T20:39:03.607Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T20:39:03.607Z"
             },
             {
               "$type": "Document",
@@ -139,12 +134,11 @@
               "Title": "App.WinForms.csproj",
               "DocumentMoniker": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\App.WinForms.csproj",
               "RelativeDocumentMoniker": "src\\App.WinForms\\App.WinForms.csproj",
-              "ToolTip": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\App.WinForms.csproj*",
-              "RelativeToolTip": "src\\App.WinForms\\App.WinForms.csproj*",
+              "ToolTip": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\App.WinForms.csproj",
+              "RelativeToolTip": "src\\App.WinForms\\App.WinForms.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-02-15T19:16:43.757Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T19:16:43.757Z"
             }
           ]
         }

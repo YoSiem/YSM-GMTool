@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GM Tool")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+307ab4876fcbe443b361e565324e33a8c5af473e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+daf0a60198678b408f1ce8f4547c4c89a6e58925")]
 [assembly: System.Reflection.AssemblyProductAttribute("GM Tool")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GM Tool")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

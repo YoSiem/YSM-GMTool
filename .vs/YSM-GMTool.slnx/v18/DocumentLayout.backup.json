@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|c:\\users\\patry\\desktop\\ysm-gmtool\\src\\app.winforms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|solutionrelative:src\\app.winforms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|c:\\users\\patry\\desktop\\ysm-gmtool\\src\\app.winforms\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|solutionrelative:src\\app.winforms\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|c:\\users\\patry\\desktop\\ysm-gmtool\\src\\app.winforms\\models\\browsercolumndefinition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|solutionrelative:src\\app.winforms\\models\\browsercolumndefinition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -11,20 +19,16 @@
       "RelativeMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|solutionrelative:src\\app.winforms\\presenters\\entitybrowserpresenter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|c:\\users\\patry\\desktop\\ysm-gmtool\\src\\app.winforms\\presenters\\searchindexedrecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|solutionrelative:src\\app.winforms\\presenters\\searchindexedrecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|c:\\users\\patry\\desktop\\ysm-gmtool\\src\\app.winforms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|solutionrelative:src\\app.winforms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|c:\\users\\patry\\desktop\\ysm-gmtool\\src\\app.winforms\\app.winforms.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|solutionrelative:src\\app.winforms\\app.winforms.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|c:\\users\\patry\\desktop\\ysm-gmtool\\src\\app.winforms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|solutionrelative:src\\app.winforms\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|c:\\users\\patry\\desktop\\ysm-gmtool\\src\\app.winforms\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|solutionrelative:src\\app.winforms\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|c:\\users\\patry\\desktop\\ysm-gmtool\\src\\app.winforms\\presenters\\searchindexedrecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8BE92A79-B209-B5D4-85E3-E8A6DD3722CE}|src\\App.WinForms\\App.WinForms.csproj|solutionrelative:src\\app.winforms\\presenters\\searchindexedrecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -55,19 +59,30 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "MainForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\MainForm.cs",
+              "RelativeDocumentMoniker": "src\\App.WinForms\\MainForm.cs",
+              "ToolTip": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\MainForm.cs [Design]",
+              "RelativeToolTip": "src\\App.WinForms\\MainForm.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-15T20:40:17.425Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "BrowserColumnDefinition.cs",
               "DocumentMoniker": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\Models\\BrowserColumnDefinition.cs",
               "RelativeDocumentMoniker": "src\\App.WinForms\\Models\\BrowserColumnDefinition.cs",
               "ToolTip": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\Models\\BrowserColumnDefinition.cs",
               "RelativeToolTip": "src\\App.WinForms\\Models\\BrowserColumnDefinition.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T20:39:21.068Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T20:39:21.068Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "EntityBrowserPresenter.cs",
               "DocumentMoniker": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\Presenters\\EntityBrowserPresenter.cs",
               "RelativeDocumentMoniker": "src\\App.WinForms\\Presenters\\EntityBrowserPresenter.cs",
@@ -75,12 +90,11 @@
               "RelativeToolTip": "src\\App.WinForms\\Presenters\\EntityBrowserPresenter.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T20:39:19.065Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T20:39:19.065Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "SearchIndexedRecord.cs",
               "DocumentMoniker": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\Presenters\\SearchIndexedRecord.cs",
               "RelativeDocumentMoniker": "src\\App.WinForms\\Presenters\\SearchIndexedRecord.cs",
@@ -88,21 +102,19 @@
               "RelativeToolTip": "src\\App.WinForms\\Presenters\\SearchIndexedRecord.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T20:39:18.246Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T20:39:18.246Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "MainForm.Designer.cs",
               "DocumentMoniker": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\MainForm.Designer.cs",
               "RelativeDocumentMoniker": "src\\App.WinForms\\MainForm.Designer.cs",
               "ToolTip": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\MainForm.Designer.cs",
               "RelativeToolTip": "src\\App.WinForms\\MainForm.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T20:39:10.196Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T20:39:10.196Z"
             },
             {
               "$type": "Document",
@@ -114,21 +126,19 @@
               "RelativeToolTip": "src\\App.WinForms\\MainForm.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAwAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T20:39:03.607Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T20:39:03.607Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "App.WinForms.csproj",
               "DocumentMoniker": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\App.WinForms.csproj",
               "RelativeDocumentMoniker": "src\\App.WinForms\\App.WinForms.csproj",
               "ToolTip": "C:\\Users\\patry\\Desktop\\YSM-GMTool\\src\\App.WinForms\\App.WinForms.csproj",
               "RelativeToolTip": "src\\App.WinForms\\App.WinForms.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAA2AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-02-15T19:16:43.757Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T19:16:43.757Z"
             }
           ]
         }
