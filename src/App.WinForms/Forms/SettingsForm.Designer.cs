@@ -26,6 +26,12 @@ partial class SettingsForm
     private Label lblConnectionPreview;
     private TextBox txtConnectionPreview;
     private TableLayoutPanel tlpTables;
+    private Label lblArcadiaName;
+    private TextBox txtArcadiaName;
+    private Label lblTelecasterName;
+    private TextBox txtTelecasterName;
+    private Label lblAuthName;
+    private TextBox txtAuthName;
     private Label lblCharacterResource;
     private TextBox txtCharacterResource;
     private Label lblMonsterResource;
@@ -85,6 +91,12 @@ partial class SettingsForm
         txtConnectionPreview = new TextBox();
         tabTables = new TabPage();
         tlpTables = new TableLayoutPanel();
+        lblArcadiaName = new Label();
+        txtArcadiaName = new TextBox();
+        lblTelecasterName = new Label();
+        txtTelecasterName = new TextBox();
+        lblAuthName = new Label();
+        txtAuthName = new TextBox();
         lblCharacterResource = new Label();
         txtCharacterResource = new TextBox();
         lblMonsterResource = new Label();
@@ -386,28 +398,37 @@ partial class SettingsForm
         tlpTables.ColumnCount = 2;
         tlpTables.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
         tlpTables.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-        tlpTables.Controls.Add(lblCharacterResource, 0, 0);
-        tlpTables.Controls.Add(txtCharacterResource, 1, 0);
-        tlpTables.Controls.Add(lblMonsterResource, 0, 1);
-        tlpTables.Controls.Add(txtMonsterResource, 1, 1);
-        tlpTables.Controls.Add(lblStringResource, 0, 2);
-        tlpTables.Controls.Add(txtStringResource, 1, 2);
-        tlpTables.Controls.Add(lblStringResourceFull, 0, 3);
-        tlpTables.Controls.Add(txtStringResourceFull, 1, 3);
-        tlpTables.Controls.Add(lblItemResource, 0, 4);
-        tlpTables.Controls.Add(txtItemResource, 1, 4);
-        tlpTables.Controls.Add(lblSkillResource, 0, 5);
-        tlpTables.Controls.Add(txtSkillResource, 1, 5);
-        tlpTables.Controls.Add(lblStateResource, 0, 6);
-        tlpTables.Controls.Add(txtStateResource, 1, 6);
-        tlpTables.Controls.Add(lblNpcResource, 0, 7);
-        tlpTables.Controls.Add(txtNpcResource, 1, 7);
-        tlpTables.Controls.Add(lblSummonResource, 0, 8);
-        tlpTables.Controls.Add(txtSummonResource, 1, 8);
+        tlpTables.Controls.Add(lblArcadiaName, 0, 0);
+        tlpTables.Controls.Add(txtArcadiaName, 1, 0);
+        tlpTables.Controls.Add(lblTelecasterName, 0, 1);
+        tlpTables.Controls.Add(txtTelecasterName, 1, 1);
+        tlpTables.Controls.Add(lblAuthName, 0, 2);
+        tlpTables.Controls.Add(txtAuthName, 1, 2);
+        tlpTables.Controls.Add(lblCharacterResource, 0, 3);
+        tlpTables.Controls.Add(txtCharacterResource, 1, 3);
+        tlpTables.Controls.Add(lblMonsterResource, 0, 4);
+        tlpTables.Controls.Add(txtMonsterResource, 1, 4);
+        tlpTables.Controls.Add(lblStringResource, 0, 5);
+        tlpTables.Controls.Add(txtStringResource, 1, 5);
+        tlpTables.Controls.Add(lblStringResourceFull, 0, 6);
+        tlpTables.Controls.Add(txtStringResourceFull, 1, 6);
+        tlpTables.Controls.Add(lblItemResource, 0, 7);
+        tlpTables.Controls.Add(txtItemResource, 1, 7);
+        tlpTables.Controls.Add(lblSkillResource, 0, 8);
+        tlpTables.Controls.Add(txtSkillResource, 1, 8);
+        tlpTables.Controls.Add(lblStateResource, 0, 9);
+        tlpTables.Controls.Add(txtStateResource, 1, 9);
+        tlpTables.Controls.Add(lblNpcResource, 0, 10);
+        tlpTables.Controls.Add(txtNpcResource, 1, 10);
+        tlpTables.Controls.Add(lblSummonResource, 0, 11);
+        tlpTables.Controls.Add(txtSummonResource, 1, 11);
         tlpTables.Dock = DockStyle.Fill;
         tlpTables.Location = new Point(8, 8);
         tlpTables.Name = "tlpTables";
-        tlpTables.RowCount = 10;
+        tlpTables.RowCount = 13;
+        tlpTables.RowStyles.Add(new RowStyle());
+        tlpTables.RowStyles.Add(new RowStyle());
+        tlpTables.RowStyles.Add(new RowStyle());
         tlpTables.RowStyles.Add(new RowStyle());
         tlpTables.RowStyles.Add(new RowStyle());
         tlpTables.RowStyles.Add(new RowStyle());
@@ -421,167 +442,221 @@ partial class SettingsForm
         tlpTables.Size = new Size(870, 516);
         tlpTables.TabIndex = 0;
         // 
+        // lblArcadiaName
+        // 
+        lblArcadiaName.Anchor = AnchorStyles.Left;
+        lblArcadiaName.AutoSize = true;
+        lblArcadiaName.Location = new Point(3, 8);
+        lblArcadiaName.Name = "lblArcadiaName";
+        lblArcadiaName.Size = new Size(96, 20);
+        lblArcadiaName.TabIndex = 0;
+        lblArcadiaName.Text = "Arcadia Name";
+        // 
+        // txtArcadiaName
+        // 
+        txtArcadiaName.Dock = DockStyle.Fill;
+        txtArcadiaName.Location = new Point(223, 3);
+        txtArcadiaName.Name = "txtArcadiaName";
+        txtArcadiaName.Size = new Size(644, 27);
+        txtArcadiaName.TabIndex = 1;
+        // 
+        // lblTelecasterName
+        // 
+        lblTelecasterName.Anchor = AnchorStyles.Left;
+        lblTelecasterName.AutoSize = true;
+        lblTelecasterName.Location = new Point(3, 42);
+        lblTelecasterName.Name = "lblTelecasterName";
+        lblTelecasterName.Size = new Size(113, 20);
+        lblTelecasterName.TabIndex = 2;
+        lblTelecasterName.Text = "Telecaster Name";
+        // 
+        // txtTelecasterName
+        // 
+        txtTelecasterName.Dock = DockStyle.Fill;
+        txtTelecasterName.Location = new Point(223, 37);
+        txtTelecasterName.Name = "txtTelecasterName";
+        txtTelecasterName.Size = new Size(644, 27);
+        txtTelecasterName.TabIndex = 3;
+        // 
+        // lblAuthName
+        // 
+        lblAuthName.Anchor = AnchorStyles.Left;
+        lblAuthName.AutoSize = true;
+        lblAuthName.Location = new Point(3, 76);
+        lblAuthName.Name = "lblAuthName";
+        lblAuthName.Size = new Size(83, 20);
+        lblAuthName.TabIndex = 4;
+        lblAuthName.Text = "Auth Name";
+        // 
+        // txtAuthName
+        // 
+        txtAuthName.Dock = DockStyle.Fill;
+        txtAuthName.Location = new Point(223, 71);
+        txtAuthName.Name = "txtAuthName";
+        txtAuthName.Size = new Size(644, 27);
+        txtAuthName.TabIndex = 5;
+        // 
         // lblCharacterResource
         // 
         lblCharacterResource.Anchor = AnchorStyles.Left;
         lblCharacterResource.AutoSize = true;
-        lblCharacterResource.Location = new Point(3, 8);
+        lblCharacterResource.Location = new Point(3, 110);
         lblCharacterResource.Name = "lblCharacterResource";
         lblCharacterResource.Size = new Size(127, 20);
-        lblCharacterResource.TabIndex = 0;
+        lblCharacterResource.TabIndex = 6;
         lblCharacterResource.Text = "CharacterResource";
         // 
         // txtCharacterResource
         // 
         txtCharacterResource.Dock = DockStyle.Fill;
-        txtCharacterResource.Location = new Point(223, 3);
+        txtCharacterResource.Location = new Point(223, 105);
         txtCharacterResource.Name = "txtCharacterResource";
         txtCharacterResource.Size = new Size(644, 27);
-        txtCharacterResource.TabIndex = 1;
+        txtCharacterResource.TabIndex = 7;
         // 
         // lblMonsterResource
         // 
         lblMonsterResource.Anchor = AnchorStyles.Left;
         lblMonsterResource.AutoSize = true;
-        lblMonsterResource.Location = new Point(3, 42);
+        lblMonsterResource.Location = new Point(3, 144);
         lblMonsterResource.Name = "lblMonsterResource";
         lblMonsterResource.Size = new Size(121, 20);
-        lblMonsterResource.TabIndex = 2;
+        lblMonsterResource.TabIndex = 8;
         lblMonsterResource.Text = "MonsterResource";
         // 
         // txtMonsterResource
         // 
         txtMonsterResource.Dock = DockStyle.Fill;
-        txtMonsterResource.Location = new Point(223, 37);
+        txtMonsterResource.Location = new Point(223, 139);
         txtMonsterResource.Name = "txtMonsterResource";
         txtMonsterResource.Size = new Size(644, 27);
-        txtMonsterResource.TabIndex = 3;
+        txtMonsterResource.TabIndex = 9;
         // 
         // lblStringResource
         // 
         lblStringResource.Anchor = AnchorStyles.Left;
         lblStringResource.AutoSize = true;
-        lblStringResource.Location = new Point(3, 76);
+        lblStringResource.Location = new Point(3, 178);
         lblStringResource.Name = "lblStringResource";
         lblStringResource.Size = new Size(108, 20);
-        lblStringResource.TabIndex = 4;
+        lblStringResource.TabIndex = 10;
         lblStringResource.Text = "StringResource";
         // 
         // txtStringResource
         // 
         txtStringResource.Dock = DockStyle.Fill;
-        txtStringResource.Location = new Point(223, 71);
+        txtStringResource.Location = new Point(223, 173);
         txtStringResource.Name = "txtStringResource";
         txtStringResource.Size = new Size(644, 27);
-        txtStringResource.TabIndex = 5;
+        txtStringResource.TabIndex = 11;
         // 
         // lblStringResourceFull
         // 
         lblStringResourceFull.Anchor = AnchorStyles.Left;
         lblStringResourceFull.AutoSize = true;
-        lblStringResourceFull.Location = new Point(3, 110);
+        lblStringResourceFull.Location = new Point(3, 212);
         lblStringResourceFull.Name = "lblStringResourceFull";
         lblStringResourceFull.Size = new Size(138, 20);
-        lblStringResourceFull.TabIndex = 6;
+        lblStringResourceFull.TabIndex = 12;
         lblStringResourceFull.Text = "StringResourceFull";
         // 
         // txtStringResourceFull
         // 
         txtStringResourceFull.Dock = DockStyle.Fill;
-        txtStringResourceFull.Location = new Point(223, 105);
+        txtStringResourceFull.Location = new Point(223, 207);
         txtStringResourceFull.Name = "txtStringResourceFull";
         txtStringResourceFull.Size = new Size(644, 27);
-        txtStringResourceFull.TabIndex = 7;
+        txtStringResourceFull.TabIndex = 13;
         // 
         // lblItemResource
         // 
         lblItemResource.Anchor = AnchorStyles.Left;
         lblItemResource.AutoSize = true;
-        lblItemResource.Location = new Point(3, 144);
+        lblItemResource.Location = new Point(3, 246);
         lblItemResource.Name = "lblItemResource";
         lblItemResource.Size = new Size(92, 20);
-        lblItemResource.TabIndex = 8;
+        lblItemResource.TabIndex = 14;
         lblItemResource.Text = "ItemResource";
         // 
         // txtItemResource
         // 
         txtItemResource.Dock = DockStyle.Fill;
-        txtItemResource.Location = new Point(223, 139);
+        txtItemResource.Location = new Point(223, 241);
         txtItemResource.Name = "txtItemResource";
         txtItemResource.Size = new Size(644, 27);
-        txtItemResource.TabIndex = 9;
+        txtItemResource.TabIndex = 15;
         // 
         // lblSkillResource
         // 
         lblSkillResource.Anchor = AnchorStyles.Left;
         lblSkillResource.AutoSize = true;
-        lblSkillResource.Location = new Point(3, 178);
+        lblSkillResource.Location = new Point(3, 280);
         lblSkillResource.Name = "lblSkillResource";
         lblSkillResource.Size = new Size(93, 20);
-        lblSkillResource.TabIndex = 10;
+        lblSkillResource.TabIndex = 16;
         lblSkillResource.Text = "SkillResource";
         // 
         // txtSkillResource
         // 
         txtSkillResource.Dock = DockStyle.Fill;
-        txtSkillResource.Location = new Point(223, 173);
+        txtSkillResource.Location = new Point(223, 275);
         txtSkillResource.Name = "txtSkillResource";
         txtSkillResource.Size = new Size(644, 27);
-        txtSkillResource.TabIndex = 11;
+        txtSkillResource.TabIndex = 17;
         // 
         // lblStateResource
         // 
         lblStateResource.Anchor = AnchorStyles.Left;
         lblStateResource.AutoSize = true;
-        lblStateResource.Location = new Point(3, 212);
+        lblStateResource.Location = new Point(3, 314);
         lblStateResource.Name = "lblStateResource";
         lblStateResource.Size = new Size(98, 20);
-        lblStateResource.TabIndex = 12;
+        lblStateResource.TabIndex = 18;
         lblStateResource.Text = "StateResource";
         // 
         // txtStateResource
         // 
         txtStateResource.Dock = DockStyle.Fill;
-        txtStateResource.Location = new Point(223, 207);
+        txtStateResource.Location = new Point(223, 309);
         txtStateResource.Name = "txtStateResource";
         txtStateResource.Size = new Size(644, 27);
-        txtStateResource.TabIndex = 13;
+        txtStateResource.TabIndex = 19;
         // 
         // lblNpcResource
         // 
         lblNpcResource.Anchor = AnchorStyles.Left;
         lblNpcResource.AutoSize = true;
-        lblNpcResource.Location = new Point(3, 246);
+        lblNpcResource.Location = new Point(3, 348);
         lblNpcResource.Name = "lblNpcResource";
         lblNpcResource.Size = new Size(90, 20);
-        lblNpcResource.TabIndex = 14;
+        lblNpcResource.TabIndex = 20;
         lblNpcResource.Text = "NpcResource";
         // 
         // txtNpcResource
         // 
         txtNpcResource.Dock = DockStyle.Fill;
-        txtNpcResource.Location = new Point(223, 241);
+        txtNpcResource.Location = new Point(223, 343);
         txtNpcResource.Name = "txtNpcResource";
         txtNpcResource.Size = new Size(644, 27);
-        txtNpcResource.TabIndex = 15;
+        txtNpcResource.TabIndex = 21;
         // 
         // lblSummonResource
         // 
         lblSummonResource.Anchor = AnchorStyles.Left;
         lblSummonResource.AutoSize = true;
-        lblSummonResource.Location = new Point(3, 280);
+        lblSummonResource.Location = new Point(3, 382);
         lblSummonResource.Name = "lblSummonResource";
         lblSummonResource.Size = new Size(119, 20);
-        lblSummonResource.TabIndex = 16;
+        lblSummonResource.TabIndex = 22;
         lblSummonResource.Text = "SummonResource";
         // 
         // txtSummonResource
         // 
         txtSummonResource.Dock = DockStyle.Fill;
-        txtSummonResource.Location = new Point(223, 275);
+        txtSummonResource.Location = new Point(223, 377);
         txtSummonResource.Name = "txtSummonResource";
         txtSummonResource.Size = new Size(644, 27);
-        txtSummonResource.TabIndex = 17;
+        txtSummonResource.TabIndex = 23;
         // 
         // lblStatus
         // 
@@ -646,6 +721,7 @@ partial class SettingsForm
         MinimumSize = new Size(900, 680);
         Name = "SettingsForm";
         Padding = new Padding(12);
+        ShowIcon = true;
         StartPosition = FormStartPosition.CenterParent;
         Text = "Settings";
         tlpRoot.ResumeLayout(false);

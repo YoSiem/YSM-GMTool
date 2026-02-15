@@ -21,9 +21,8 @@ partial class MainForm
     private Controls.EntityBrowserControl browserNpcs;
     private Controls.EntityBrowserControl browserSummons;
     private TableLayoutPanel tlpSidebar;
+    private FlowLayoutPanel flpTopButtons;
     private PictureBox picAvatar;
-    private Label lblProviderCaption;
-    private Label lblProviderValue;
     private Label lblPlayer;
     private ComboBox cmbPlayers;
     private Label lblNewPlayer;
@@ -33,7 +32,7 @@ partial class MainForm
     private Button btnRemovePlayer;
     private CheckBox chkAppendCommands;
     private FontAwesome.Sharp.IconButton btnSettings;
-    private Button btnAbout;
+    private FontAwesome.Sharp.IconButton btnAbout;
     private TableLayoutPanel tlpCommandOverview;
     private ListBox lstCommands;
     private FlowLayoutPanel flpCommandButtons;
@@ -77,9 +76,8 @@ partial class MainForm
         btnCopyAll = new Button();
         btnClearCommands = new Button();
         tlpSidebar = new TableLayoutPanel();
+        flpTopButtons = new FlowLayoutPanel();
         picAvatar = new PictureBox();
-        lblProviderCaption = new Label();
-        lblProviderValue = new Label();
         lblPlayer = new Label();
         cmbPlayers = new ComboBox();
         lblNewPlayer = new Label();
@@ -89,7 +87,7 @@ partial class MainForm
         btnRemovePlayer = new Button();
         chkAppendCommands = new CheckBox();
         btnSettings = new FontAwesome.Sharp.IconButton();
-        btnAbout = new Button();
+        btnAbout = new FontAwesome.Sharp.IconButton();
         tlpRoot.SuspendLayout();
         tabMain.SuspendLayout();
         tabPlayerchecker.SuspendLayout();
@@ -103,6 +101,7 @@ partial class MainForm
         tlpCommandOverview.SuspendLayout();
         flpCommandButtons.SuspendLayout();
         tlpSidebar.SuspendLayout();
+        flpTopButtons.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)picAvatar).BeginInit();
         flpPlayerButtons.SuspendLayout();
         SuspendLayout();
@@ -353,22 +352,19 @@ partial class MainForm
         // 
         tlpSidebar.ColumnCount = 1;
         tlpSidebar.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-        tlpSidebar.Controls.Add(picAvatar, 0, 0);
-        tlpSidebar.Controls.Add(lblProviderCaption, 0, 1);
-        tlpSidebar.Controls.Add(lblProviderValue, 0, 2);
-        tlpSidebar.Controls.Add(lblPlayer, 0, 3);
-        tlpSidebar.Controls.Add(cmbPlayers, 0, 4);
-        tlpSidebar.Controls.Add(lblNewPlayer, 0, 5);
-        tlpSidebar.Controls.Add(txtNewPlayer, 0, 6);
-        tlpSidebar.Controls.Add(flpPlayerButtons, 0, 7);
-        tlpSidebar.Controls.Add(chkAppendCommands, 0, 8);
-        tlpSidebar.Controls.Add(btnSettings, 0, 9);
-        tlpSidebar.Controls.Add(btnAbout, 0, 10);
+        tlpSidebar.Controls.Add(flpTopButtons, 0, 0);
+        tlpSidebar.Controls.Add(picAvatar, 0, 1);
+        tlpSidebar.Controls.Add(lblPlayer, 0, 2);
+        tlpSidebar.Controls.Add(cmbPlayers, 0, 3);
+        tlpSidebar.Controls.Add(lblNewPlayer, 0, 4);
+        tlpSidebar.Controls.Add(txtNewPlayer, 0, 5);
+        tlpSidebar.Controls.Add(flpPlayerButtons, 0, 6);
+        tlpSidebar.Controls.Add(chkAppendCommands, 0, 7);
         tlpSidebar.Dock = DockStyle.Fill;
         tlpSidebar.Location = new Point(1073, 3);
         tlpSidebar.Name = "tlpSidebar";
         tlpSidebar.Padding = new Padding(8);
-        tlpSidebar.RowCount = 11;
+        tlpSidebar.RowCount = 9;
         tlpSidebar.RowStyles.Add(new RowStyle());
         tlpSidebar.RowStyles.Add(new RowStyle());
         tlpSidebar.RowStyles.Add(new RowStyle());
@@ -377,78 +373,70 @@ partial class MainForm
         tlpSidebar.RowStyles.Add(new RowStyle());
         tlpSidebar.RowStyles.Add(new RowStyle());
         tlpSidebar.RowStyles.Add(new RowStyle());
-        tlpSidebar.RowStyles.Add(new RowStyle());
-        tlpSidebar.RowStyles.Add(new RowStyle());
-        tlpSidebar.RowStyles.Add(new RowStyle());
+        tlpSidebar.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
         tlpSidebar.Size = new Size(304, 854);
         tlpSidebar.TabIndex = 1;
+        // 
+        // flpTopButtons
+        // 
+        flpTopButtons.AutoSize = true;
+        flpTopButtons.Controls.Add(btnAbout);
+        flpTopButtons.Controls.Add(btnSettings);
+        flpTopButtons.Dock = DockStyle.Fill;
+        flpTopButtons.FlowDirection = FlowDirection.RightToLeft;
+        flpTopButtons.Location = new Point(11, 11);
+        flpTopButtons.Margin = new Padding(3);
+        flpTopButtons.Name = "flpTopButtons";
+        flpTopButtons.Size = new Size(282, 38);
+        flpTopButtons.TabIndex = 0;
         // 
         // picAvatar
         // 
         picAvatar.Dock = DockStyle.Fill;
-        picAvatar.Location = new Point(11, 11);
+        picAvatar.Location = new Point(11, 55);
         picAvatar.Name = "picAvatar";
-        picAvatar.Size = new Size(282, 140);
+        picAvatar.Size = new Size(282, 168);
         picAvatar.SizeMode = PictureBoxSizeMode.Zoom;
-        picAvatar.TabIndex = 0;
+        picAvatar.TabIndex = 1;
         picAvatar.TabStop = false;
-        // 
-        // lblProviderCaption
-        // 
-        lblProviderCaption.AutoSize = true;
-        lblProviderCaption.Location = new Point(11, 154);
-        lblProviderCaption.Name = "lblProviderCaption";
-        lblProviderCaption.Padding = new Padding(0, 10, 0, 0);
-        lblProviderCaption.Size = new Size(126, 30);
-        lblProviderCaption.TabIndex = 1;
-        lblProviderCaption.Text = "Database provider";
-        // 
-        // lblProviderValue
-        // 
-        lblProviderValue.AutoSize = true;
-        lblProviderValue.Location = new Point(11, 184);
-        lblProviderValue.Name = "lblProviderValue";
-        lblProviderValue.Size = new Size(51, 20);
-        lblProviderValue.TabIndex = 2;
-        lblProviderValue.Text = "MSSQL";
         // 
         // lblPlayer
         // 
         lblPlayer.AutoSize = true;
-        lblPlayer.Location = new Point(11, 204);
+        lblPlayer.Location = new Point(11, 226);
         lblPlayer.Name = "lblPlayer";
         lblPlayer.Padding = new Padding(0, 10, 0, 0);
         lblPlayer.Size = new Size(50, 30);
-        lblPlayer.TabIndex = 3;
+        lblPlayer.TabIndex = 2;
         lblPlayer.Text = "Player";
         // 
         // cmbPlayers
         // 
         cmbPlayers.Dock = DockStyle.Top;
         cmbPlayers.FormattingEnabled = true;
-        cmbPlayers.Location = new Point(11, 237);
+        cmbPlayers.Location = new Point(11, 259);
         cmbPlayers.Name = "cmbPlayers";
         cmbPlayers.Size = new Size(282, 28);
-        cmbPlayers.TabIndex = 4;
+        cmbPlayers.TabIndex = 3;
         cmbPlayers.SelectedIndexChanged += cmbPlayers_SelectedIndexChanged;
         // 
         // lblNewPlayer
         // 
         lblNewPlayer.AutoSize = true;
-        lblNewPlayer.Location = new Point(11, 268);
+        lblNewPlayer.Location = new Point(11, 290);
         lblNewPlayer.Name = "lblNewPlayer";
         lblNewPlayer.Padding = new Padding(0, 10, 0, 0);
         lblNewPlayer.Size = new Size(46, 30);
-        lblNewPlayer.TabIndex = 5;
+        lblNewPlayer.TabIndex = 4;
         lblNewPlayer.Text = "New:";
         // 
         // txtNewPlayer
         // 
         txtNewPlayer.Dock = DockStyle.Top;
-        txtNewPlayer.Location = new Point(11, 301);
+        txtNewPlayer.Location = new Point(11, 323);
         txtNewPlayer.Name = "txtNewPlayer";
         txtNewPlayer.Size = new Size(282, 27);
-        txtNewPlayer.TabIndex = 6;
+        txtNewPlayer.TabIndex = 5;
         // 
         // flpPlayerButtons
         // 
@@ -456,10 +444,10 @@ partial class MainForm
         flpPlayerButtons.Controls.Add(btnAddPlayer);
         flpPlayerButtons.Controls.Add(btnRemovePlayer);
         flpPlayerButtons.Dock = DockStyle.Top;
-        flpPlayerButtons.Location = new Point(11, 334);
+        flpPlayerButtons.Location = new Point(11, 356);
         flpPlayerButtons.Name = "flpPlayerButtons";
         flpPlayerButtons.Size = new Size(282, 35);
-        flpPlayerButtons.TabIndex = 7;
+        flpPlayerButtons.TabIndex = 6;
         // 
         // btnAddPlayer
         // 
@@ -486,41 +474,47 @@ partial class MainForm
         chkAppendCommands.AutoSize = true;
         chkAppendCommands.Checked = true;
         chkAppendCommands.CheckState = CheckState.Checked;
-        chkAppendCommands.Location = new Point(11, 375);
+        chkAppendCommands.Location = new Point(11, 397);
         chkAppendCommands.Name = "chkAppendCommands";
         chkAppendCommands.Padding = new Padding(0, 10, 0, 0);
         chkAppendCommands.Size = new Size(222, 34);
-        chkAppendCommands.TabIndex = 8;
+        chkAppendCommands.TabIndex = 7;
         chkAppendCommands.Text = "Append / run to commands";
         chkAppendCommands.UseVisualStyleBackColor = true;
         chkAppendCommands.CheckedChanged += chkAppendCommands_CheckedChanged;
         // 
         // btnSettings
         // 
-        btnSettings.Dock = DockStyle.Top;
+        btnSettings.BackColor = Color.Transparent;
+        btnSettings.FlatAppearance.BorderSize = 0;
+        btnSettings.FlatStyle = FlatStyle.Flat;
         btnSettings.IconChar = FontAwesome.Sharp.IconChar.Gear;
-        btnSettings.IconColor = Color.DimGray;
+        btnSettings.IconColor = Color.Gainsboro;
         btnSettings.IconFont = FontAwesome.Sharp.IconFont.Auto;
-        btnSettings.IconSize = 20;
-        btnSettings.ImageAlign = ContentAlignment.MiddleLeft;
-        btnSettings.Location = new Point(11, 415);
+        btnSettings.IconSize = 16;
+        btnSettings.Location = new Point(247, 3);
+        btnSettings.Margin = new Padding(3);
         btnSettings.Name = "btnSettings";
-        btnSettings.Size = new Size(282, 32);
-        btnSettings.TabIndex = 9;
-        btnSettings.Text = "Settings";
-        btnSettings.TextAlign = ContentAlignment.MiddleRight;
-        btnSettings.UseVisualStyleBackColor = true;
+        btnSettings.Size = new Size(32, 32);
+        btnSettings.TabIndex = 1;
+        btnSettings.UseVisualStyleBackColor = false;
         btnSettings.Click += btnSettings_Click;
         // 
         // btnAbout
         // 
-        btnAbout.Dock = DockStyle.Top;
-        btnAbout.Location = new Point(11, 453);
+        btnAbout.BackColor = Color.Transparent;
+        btnAbout.FlatAppearance.BorderSize = 0;
+        btnAbout.FlatStyle = FlatStyle.Flat;
+        btnAbout.IconChar = FontAwesome.Sharp.IconChar.CircleInfo;
+        btnAbout.IconColor = Color.Gainsboro;
+        btnAbout.IconFont = FontAwesome.Sharp.IconFont.Auto;
+        btnAbout.IconSize = 16;
+        btnAbout.Location = new Point(209, 3);
+        btnAbout.Margin = new Padding(3);
         btnAbout.Name = "btnAbout";
-        btnAbout.Size = new Size(282, 32);
-        btnAbout.TabIndex = 10;
-        btnAbout.Text = "About";
-        btnAbout.UseVisualStyleBackColor = true;
+        btnAbout.Size = new Size(32, 32);
+        btnAbout.TabIndex = 0;
+        btnAbout.UseVisualStyleBackColor = false;
         btnAbout.Click += btnAbout_Click;
         // 
         // MainForm
@@ -550,6 +544,7 @@ partial class MainForm
         flpCommandButtons.ResumeLayout(false);
         tlpSidebar.ResumeLayout(false);
         tlpSidebar.PerformLayout();
+        flpTopButtons.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)picAvatar).EndInit();
         flpPlayerButtons.ResumeLayout(false);
         ResumeLayout(false);

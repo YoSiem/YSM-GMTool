@@ -21,6 +21,7 @@ public partial class SettingsForm : Form
         _workingSettings = currentSettings.Clone();
 
         InitializeComponent();
+        ApplyDialogIcon();
         LoadSettingsIntoControls();
     }
 
@@ -52,6 +53,9 @@ public partial class SettingsForm : Form
         chkEncrypt.Checked = _workingSettings.Connection.Encrypt;
         chkTrustServerCertificate.Checked = _workingSettings.Connection.TrustServerCertificate;
 
+        txtArcadiaName.Text = _workingSettings.TableNames.ArcadiaName;
+        txtTelecasterName.Text = _workingSettings.TableNames.TelecasterName;
+        txtAuthName.Text = _workingSettings.TableNames.AuthName;
         txtCharacterResource.Text = _workingSettings.TableNames.CharacterResource;
         txtMonsterResource.Text = _workingSettings.TableNames.MonsterResource;
         txtStringResource.Text = _workingSettings.TableNames.StringResource;
@@ -83,6 +87,9 @@ public partial class SettingsForm : Form
         _workingSettings.Connection.Encrypt = chkEncrypt.Checked;
         _workingSettings.Connection.TrustServerCertificate = chkTrustServerCertificate.Checked;
 
+        _workingSettings.TableNames.ArcadiaName = txtArcadiaName.Text.Trim();
+        _workingSettings.TableNames.TelecasterName = txtTelecasterName.Text.Trim();
+        _workingSettings.TableNames.AuthName = txtAuthName.Text.Trim();
         _workingSettings.TableNames.CharacterResource = txtCharacterResource.Text.Trim();
         _workingSettings.TableNames.MonsterResource = txtMonsterResource.Text.Trim();
         _workingSettings.TableNames.StringResource = txtStringResource.Text.Trim();
@@ -94,6 +101,23 @@ public partial class SettingsForm : Form
         _workingSettings.TableNames.SummonResource = txtSummonResource.Text.Trim();
 
         _workingSettings.ConnectionString = _connectionStringBuilder.Build(_workingSettings.Provider, _workingSettings.Connection);
+    }
+
+    private void ApplyDialogIcon()
+    {
+        try
+        {
+            using var exeIcon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            if (exeIcon is not null)
+            {
+                Icon = (Icon)exeIcon.Clone();
+                ShowIcon = true;
+            }
+        }
+        catch
+        {
+            // Keep default if extraction fails.
+        }
     }
 
     private bool TryBuildConnectionString(out string connectionString, out string validationMessage)

@@ -129,8 +129,6 @@ public partial class MainForm : Form
         tabMain.BackColor = page;
 
         tlpSidebar.BackColor = side;
-        lblProviderCaption.ForeColor = muted;
-        lblProviderValue.ForeColor = text;
         lblPlayer.ForeColor = muted;
         lblNewPlayer.ForeColor = muted;
         chkAppendCommands.ForeColor = text;
@@ -530,7 +528,6 @@ public partial class MainForm : Form
 
     private void ApplySettingsToUi()
     {
-        lblProviderValue.Text = _settings.Provider.ToString();
         chkAppendCommands.Checked = _settings.AppendGeneratedCommands;
 
         cmbPlayers.BeginUpdate();
@@ -1331,13 +1328,13 @@ public partial class MainForm : Form
     private async void btnSettings_Click(object sender, EventArgs e)
     {
         using var settingsForm = new SettingsForm(_repository, _connectionStringBuilder, _settings);
+        settingsForm.Icon = Icon;
         if (settingsForm.ShowDialog(this) != DialogResult.OK)
         {
             return;
         }
 
         _settings = settingsForm.UpdatedSettings.Clone();
-        lblProviderValue.Text = _settings.Provider.ToString();
 
         await SaveSettingsSafeAsync();
     }

@@ -2,6 +2,12 @@ namespace App.Core.Models;
 
 public sealed class TableNameSettings
 {
+    public string ArcadiaName { get; set; } = "Arcadia";
+
+    public string TelecasterName { get; set; } = "Telecaster";
+
+    public string AuthName { get; set; } = "Auth";
+
     public string CharacterResource { get; set; } = "CharacterResource";
 
     public string MonsterResource { get; set; } = "MonsterResource";
@@ -24,6 +30,9 @@ public sealed class TableNameSettings
     {
         var map = new Dictionary<string, string>(StringComparer.Ordinal)
         {
+            [nameof(ArcadiaName)] = ArcadiaName,
+            [nameof(TelecasterName)] = TelecasterName,
+            [nameof(AuthName)] = AuthName,
             [nameof(CharacterResource)] = CharacterResource,
             [nameof(MonsterResource)] = MonsterResource,
             [nameof(StringResource)] = StringResource,
@@ -45,6 +54,9 @@ public sealed class TableNameSettings
 
     public TableNameSettings Clone() => new()
     {
+        ArcadiaName = ArcadiaName,
+        TelecasterName = TelecasterName,
+        AuthName = AuthName,
         CharacterResource = CharacterResource,
         MonsterResource = MonsterResource,
         StringResource = StringResource,
