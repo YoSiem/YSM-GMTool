@@ -10,6 +10,7 @@ partial class EntityBrowserControl
     private RadioButton rbSearchByContactScript;
     private RadioButton rbSearchByName;
     private RadioButton rbSearchById;
+    private CheckBox chkRealtime;
     private TextBox txtSearch;
     private Button btnSearch;
     private Button btnLoadAll;
@@ -34,6 +35,7 @@ partial class EntityBrowserControl
         gbSearch = new GroupBox();
         btnLoadAll = new Button();
         btnSearch = new Button();
+        chkRealtime = new CheckBox();
         txtSearch = new TextBox();
         rbSearchByContactScript = new RadioButton();
         rbSearchByName = new RadioButton();
@@ -100,6 +102,7 @@ partial class EntityBrowserControl
         // 
         gbSearch.Controls.Add(btnLoadAll);
         gbSearch.Controls.Add(btnSearch);
+        gbSearch.Controls.Add(chkRealtime);
         gbSearch.Controls.Add(txtSearch);
         gbSearch.Controls.Add(rbSearchByContactScript);
         gbSearch.Controls.Add(rbSearchByName);
@@ -107,7 +110,7 @@ partial class EntityBrowserControl
         gbSearch.Dock = DockStyle.Fill;
         gbSearch.Location = new Point(3, 3);
         gbSearch.Name = "gbSearch";
-        gbSearch.Size = new Size(470, 113);
+        gbSearch.Size = new Size(470, 140);
         gbSearch.TabIndex = 0;
         gbSearch.TabStop = false;
         gbSearch.Text = "Search";
@@ -131,6 +134,17 @@ partial class EntityBrowserControl
         btnSearch.Text = "Search";
         btnSearch.UseVisualStyleBackColor = true;
         btnSearch.Click += btnSearch_Click;
+        // 
+        // chkRealtime
+        // 
+        chkRealtime.AutoSize = true;
+        chkRealtime.Checked = true;
+        chkRealtime.Location = new Point(17, 106);
+        chkRealtime.Name = "chkRealtime";
+        chkRealtime.Size = new Size(155, 24);
+        chkRealtime.TabIndex = 6;
+        chkRealtime.Text = "Real-time filtering";
+        chkRealtime.UseVisualStyleBackColor = true;
         // 
         // txtSearch
         // 
@@ -181,10 +195,10 @@ partial class EntityBrowserControl
         // 
         pnlActionsHost.AutoScroll = true;
         pnlActionsHost.Dock = DockStyle.Fill;
-        pnlActionsHost.Location = new Point(3, 122);
+        pnlActionsHost.Location = new Point(3, 149);
         pnlActionsHost.Name = "pnlActionsHost";
         pnlActionsHost.Padding = new Padding(8);
-        pnlActionsHost.Size = new Size(470, 488);
+        pnlActionsHost.Size = new Size(470, 461);
         pnlActionsHost.TabIndex = 1;
         // 
         // lblStatus

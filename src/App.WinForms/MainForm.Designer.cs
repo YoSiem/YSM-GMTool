@@ -415,6 +415,7 @@ partial class MainForm
         tlpSidebar.RowStyles.Add(new RowStyle());
         tlpSidebar.RowStyles.Add(new RowStyle());
         tlpSidebar.RowStyles.Add(new RowStyle());
+        tlpSidebar.RowStyles.Add(new RowStyle());
         tlpSidebar.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
         tlpSidebar.Size = new Size(304, 854);
         tlpSidebar.TabIndex = 1;

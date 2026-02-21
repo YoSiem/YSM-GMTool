@@ -69,6 +69,7 @@ public partial class SettingsForm : Form
         _isLoading = false;
 
         UpdateAuthUi();
+        chkLimitSelectQueries.Checked = _workingSettings.LimitSelectQueries;
     }
 
     private void ReadControlsIntoWorkingSettings()
@@ -98,6 +99,8 @@ public partial class SettingsForm : Form
         _workingSettings.TableNames.StateResource = txtStateResource.Text.Trim();
         _workingSettings.TableNames.NpcResource = txtNpcResource.Text.Trim();
         _workingSettings.TableNames.SummonResource = txtSummonResource.Text.Trim();
+
+        _workingSettings.LimitSelectQueries = chkLimitSelectQueries.Checked;
 
         _workingSettings.ConnectionString = _connectionStringBuilder.Build(_workingSettings.Provider, _workingSettings.Connection);
     }

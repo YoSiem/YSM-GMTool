@@ -155,6 +155,19 @@ public partial class MainForm : Form
         gridInventory.ColumnHeadersDefaultCellStyle.ForeColor = text;
         gridInventory.ColumnHeadersDefaultCellStyle.SelectionBackColor = header;
         gridInventory.ColumnHeadersDefaultCellStyle.SelectionForeColor = text;
+        gridInventory.CellDoubleClick += GenericGrid_CellDoubleClick;
+    }
+
+    private void GenericGrid_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        if (sender is DataGridView grid && e.RowIndex >= 0 && e.ColumnIndex >= 0)
+        {
+            var value = grid.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+            {
+                Clipboard.SetText(value.ToString()!);
+            }
+        }
     }
 
     private void AttachActionControls()
@@ -221,6 +234,8 @@ public partial class MainForm : Form
         browserPlayerchecker.ConfigureSearchLabels("by Account", "by Char Name");
         browserPlayerchecker.HideLoadAllButton();
         browserPlayerchecker.SetDebounceDelay(350);
+        browserPlayerchecker.RealtimeFilteringVisible = false;
+        browserPlayerchecker.RealtimeFilteringEnabled = false;
 
         browserMonster.ConfigureColumns(
         [
@@ -289,7 +304,8 @@ public partial class MainForm : Form
                 term,
                 searchByAccount: mode == SearchMode.ById,
                 GetQueryTokens(),
-                ct));
+                ct),
+            maxRowsSelector: () => _settings.LimitSelectQueries ? 1000 : null);
 
         _monsterPresenter = new EntityBrowserPresenter<MonsterRecord>(
             browserMonster,
@@ -308,7 +324,7 @@ public partial class MainForm : Form
             [
                 x.Name,
                 x.Location
-            ]);
+            ], maxRowsSelector: () => _settings.LimitSelectQueries ? 1000 : null);
 
         _itemsPresenter = new EntityBrowserPresenter<ItemRecord>(
             browserItems,
@@ -320,7 +336,7 @@ public partial class MainForm : Form
                 x.ItemId,
                 x.NameEn
             ],
-            _nameNormalizer);
+            _nameNormalizer, maxRowsSelector: () => _settings.LimitSelectQueries ? 1000 : null);
 
         _skillsPresenter = new EntityBrowserPresenter<SkillRecord>(
             browserSkills,
@@ -332,7 +348,7 @@ public partial class MainForm : Form
                 x.SkillId,
                 x.Skillname
             ],
-            _nameNormalizer);
+            _nameNormalizer, maxRowsSelector: () => _settings.LimitSelectQueries ? 1000 : null);
 
         _buffsPresenter = new EntityBrowserPresenter<StateRecord>(
             browserBuffs,
@@ -344,7 +360,7 @@ public partial class MainForm : Form
                 x.StateId,
                 x.BuffName
             ],
-            _nameNormalizer);
+            _nameNormalizer, maxRowsSelector: () => _settings.LimitSelectQueries ? 1000 : null);
 
         _npcsPresenter = new EntityBrowserPresenter<NpcRecord>(
             browserNpcs,
@@ -364,7 +380,8 @@ public partial class MainForm : Form
             [
                 x.NpcTitle
             ],
-            x => x.ContactScript);
+            x => x.ContactScript,
+            maxRowsSelector: () => _settings.LimitSelectQueries ? 1000 : null);
 
         _summonsPresenter = new EntityBrowserPresenter<SummonRecord>(
             browserSummons,
@@ -382,7 +399,7 @@ public partial class MainForm : Form
             [
                 x.SummonName,
                 x.CardName
-            ]);
+            ], maxRowsSelector: () => _settings.LimitSelectQueries ? 1000 : null);
 
         var allPresenters = new object?[]
         {
@@ -593,7 +610,10 @@ public partial class MainForm : Form
         return _settings.ConnectionString;
     }
 
-    private IReadOnlyDictionary<string, string> GetQueryTokens() => _settings.TableNames.ToTokenMap();
+    private IReadOnlyDictionary<string, string> GetQueryTokens()
+    {
+        return _settings.TableNames.ToTokenMap();
+    }
 
     private void OnPresenterError(object? sender, Exception ex)
     {

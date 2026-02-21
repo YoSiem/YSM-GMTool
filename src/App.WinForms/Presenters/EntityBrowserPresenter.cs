@@ -18,6 +18,7 @@ public sealed class EntityBrowserPresenter<TRecord>
 
     // When provided, typing in the search box triggers a SQL-level query instead of in-memory filtering.
     private readonly Func<string, SearchMode, CancellationToken, Task<IReadOnlyList<TRecord>>>? _sqlSearchAsync;
+    private readonly Func<int?>? _maxRowsSelector;
 
     private List<BrowserRow> _allRows = [];
     private List<SearchIndexedRecord<TRecord>> _index = [];
@@ -38,7 +39,8 @@ public sealed class EntityBrowserPresenter<TRecord>
         INameNormalizer normalizer,
         Func<TRecord, IEnumerable<string?>>? searchableTextSelector = null,
         Func<TRecord, string?>? secondarySearchTextSelector = null,
-        Func<string, SearchMode, CancellationToken, Task<IReadOnlyList<TRecord>>>? sqlSearchAsync = null)
+        Func<string, SearchMode, CancellationToken, Task<IReadOnlyList<TRecord>>>? sqlSearchAsync = null,
+        Func<int?>? maxRowsSelector = null)
     {
         _view = view;
         _loadAllAsync = loadAllAsync;
@@ -49,6 +51,7 @@ public sealed class EntityBrowserPresenter<TRecord>
         _searchableTextSelector = searchableTextSelector;
         _secondarySearchTextSelector = secondarySearchTextSelector;
         _sqlSearchAsync = sqlSearchAsync;
+        _maxRowsSelector = maxRowsSelector;
 
         _view.LoadAllRequested += OnLoadAllRequested;
         _view.FilterRequested += OnFilterRequested;
@@ -130,12 +133,21 @@ public sealed class EntityBrowserPresenter<TRecord>
                 _index = BuildIndex(records);
                 _allRows = _index.Select(x => x.Row).ToList();
                 _dataVersion++;
-                _view.SetRows(_allRows);
-                _view.SetStatus($"Found {_allRows.Count.ToString("N0", CultureInfo.InvariantCulture)} record(s).");
+
+                var resultRows = (IEnumerable<BrowserRow>)_allRows;
+                var maxRows = _maxRowsSelector?.Invoke();
+                if (maxRows.HasValue && maxRows.Value > 0)
+                {
+                    resultRows = resultRows.Take(maxRows.Value);
+                }
+
+                var finalRows = resultRows.ToList();
+                _view.SetRows(finalRows);
+                _view.SetStatus($"Found {_allRows.Count.ToString("N0", CultureInfo.InvariantCulture)} record(s). Showing {finalRows.Count.ToString("N0", CultureInfo.InvariantCulture)}.");
             }
-            catch (OperationCanceledException)
+            catch (Exception ex) when (ex is OperationCanceledException || ex.Message.Contains("Operation cancelled by user.", StringComparison.OrdinalIgnoreCase))
             {
-                // Ignore stale filter operations.
+                // Ignore stale filter operations. Some SQL providers surface this as a SqlException instead of OperationCanceledException
             }
             catch (Exception ex)
             {
@@ -173,31 +185,32 @@ public sealed class EntityBrowserPresenter<TRecord>
             {
                 token.ThrowIfCancellationRequested();
 
+                IEnumerable<BrowserRow> resultList;
                 if (string.IsNullOrWhiteSpace(normalizedQuery))
                 {
-                    return (IReadOnlyList<BrowserRow>)_allRows;
+                    resultList = _allRows;
                 }
-
-                var resultRows = new List<BrowserRow>(Math.Min(_index.Count, 4096));
-
-                foreach (var indexed in _index)
+                else
                 {
-                    token.ThrowIfCancellationRequested();
-
-                    var match = mode switch
-                    {
-                        SearchMode.ById => indexed.NormalizedId.Contains(normalizedQuery, StringComparison.Ordinal),
-                        SearchMode.ByContactScript => indexed.NormalizedSecondarySearchText.Contains(normalizedQuery, StringComparison.Ordinal),
-                        _ => indexed.NormalizedSearchText.Contains(normalizedQuery, StringComparison.Ordinal)
-                    };
-
-                    if (match)
-                    {
-                        resultRows.Add(indexed.Row);
-                    }
+                    resultList = _index
+                        .AsParallel()
+                        .WithCancellation(token)
+                        .Where(indexed => mode switch
+                        {
+                            SearchMode.ById => indexed.NormalizedId.Contains(normalizedQuery, StringComparison.Ordinal),
+                            SearchMode.ByContactScript => indexed.NormalizedSecondarySearchText.Contains(normalizedQuery, StringComparison.Ordinal),
+                            _ => indexed.NormalizedSearchText.Contains(normalizedQuery, StringComparison.Ordinal)
+                        })
+                        .Select(x => x.Row);
                 }
 
-                return resultRows;
+                var maxRows = _maxRowsSelector?.Invoke();
+                if (maxRows.HasValue && maxRows.Value > 0)
+                {
+                    resultList = resultList.Take(maxRows.Value);
+                }
+
+                return (IReadOnlyList<BrowserRow>)resultList.ToList();
             }, token);
 
             _view.SetRows(rows);

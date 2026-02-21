@@ -1,6 +1,7 @@
 using App.WinForms.Models;
 using System.Reflection;
 using System.Drawing;
+using System.ComponentModel;
 
 namespace App.WinForms.Controls;
 
@@ -10,7 +11,7 @@ public partial class EntityBrowserControl : UserControl
     private CancellationTokenSource? _debounceCts;
     private bool _splitterInitialized;
     private bool _splitterUserAdjusted;
-    private int _debounceMs = 120;
+    private int _debounceMs = 250;
 
     public EntityBrowserControl()
     {
@@ -57,6 +58,20 @@ public partial class EntityBrowserControl : UserControl
     public void HideLoadAllButton()
     {
         btnLoadAll.Visible = false;
+    }
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public bool RealtimeFilteringEnabled
+    {
+        get => chkRealtime.Checked;
+        set => chkRealtime.Checked = value;
+    }
+
+    [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+    public bool RealtimeFilteringVisible
+    {
+        get => chkRealtime.Visible;
+        set => chkRealtime.Visible = value;
     }
 
     public void SetDebounceDelay(int milliseconds)
@@ -118,9 +133,7 @@ public partial class EntityBrowserControl : UserControl
         gridRecords.ClearSelection();
 
         // In VirtualMode visible cells can keep stale values when row count stays unchanged.
-        // Force immediate repaint so filtering is reflected while typing.
         gridRecords.Invalidate();
-        gridRecords.Refresh();
 
         SelectedRowChanged?.Invoke(this, null);
     }
@@ -148,6 +161,7 @@ public partial class EntityBrowserControl : UserControl
         gridRecords.AllowUserToOrderColumns = false;
         gridRecords.AllowUserToResizeColumns = false;
         gridRecords.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+        gridRecords.CellDoubleClick += gridRecords_CellDoubleClick;
         TryEnableDoubleBuffering(gridRecords);
     }
 
@@ -262,7 +276,10 @@ public partial class EntityBrowserControl : UserControl
         try
         {
             await Task.Delay(_debounceMs, _debounceCts.Token);
-            FilterRequested?.Invoke(this, EventArgs.Empty);
+            if (chkRealtime.Checked)
+            {
+                FilterRequested?.Invoke(this, EventArgs.Empty);
+            }
         }
         catch (OperationCanceledException)
         {
@@ -303,6 +320,21 @@ public partial class EntityBrowserControl : UserControl
 
     private void rbSearchBy_CheckedChanged(object sender, EventArgs e)
     {
-        FilterRequested?.Invoke(this, EventArgs.Empty);
+        if (chkRealtime.Checked)
+        {
+            FilterRequested?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
+    private void gridRecords_CellDoubleClick(object? sender, DataGridViewCellEventArgs e)
+    {
+        if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+        {
+            var value = gridRecords.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
+            {
+                Clipboard.SetText(value.ToString()!);
+            }
+        }
     }
 }

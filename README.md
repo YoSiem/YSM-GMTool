@@ -1,4 +1,4 @@
-# GM Tool
+# YSM-GMTool
 
 A Windows desktop GM utility for Rappelz private servers — browse game data, inspect player inventories/warehouses, and generate Lua commands directly to clipboard.
 
@@ -6,46 +6,9 @@ Built with WinForms on .NET 10, with a native dark theme and fully async databas
 
 ---
 
-## Features
+## 🚀 Installation & Requirements
 
-### Tabs
-| Tab | Description |
-|-----|-------------|
-| **Playerchecker** | Search characters by account name or character name. View ONLINE/OFFLINE status, load inventory, load warehouse, or open quick info. |
-| **Monster** | Browse all monsters by name, ID, or location. Generate spawn commands. |
-| **Items** | Browse all items. Give to yourself or other players, edit level/enhance/appearance/itemcode. |
-| **Skills** | Browse skills. Learn, set level, remove — for yourself or another player. |
-| **Buffs** | Browse all buff/state records. Apply/remove buffs, world states, and event states. |
-| **NPCs** | Browse NPCs with contact script search. Generate add/show/warp commands. |
-| **Summons** | Browse summons and their card items. Insert or stage summons. |
-
-### Playerchecker details
-- **SQL-level search** (no Load All needed) — queries run directly against the DB as you type.
-- **Two search modes**: `by Account` (searches `account` column) or `by Char Name` (searches `name` column with `LIKE`).
-- **ONLINE / OFFLINE** status column derived from login/logout timestamps.
-- **Load Inventory** — shows the selected character's inventory in the lower panel.
-- **Load Warehouse** — shows all warehouse items for the character's account.
-- **Open Infos** — quick summary popup (name, account, level, job, status).
-- 350 ms debounce on search input for responsive SQL queries without flooding the DB.
-
-### Other tabs
-- Fast in-memory filtering after `Load All`.
-- Debounced search input (~120 ms).
-- Search modes: by ID, by Name, and (NPCs) by Contact Script.
-
-### Command generation
-- Every action builds a Lua command from a configurable template and copies it to clipboard.
-- Optional `/run` prefix: when **Append /run to commands** is checked, the `/run ` prefix is added to all non-comment commands.
-- Commands starting with `//` are never prefixed.
-
-### Sidebar
-- Manage a list of target players (add/remove from the right sidebar).
-- Selected player is used as a target for multi-player commands.
-- Settings persist between sessions.
-
----
-
-## Requirements
+### Requirements
 
 - **Windows 10 / 11** (x64)
 - **.NET 10 Desktop Runtime** ([download](https://dotnet.microsoft.com/en-us/download/dotnet/10.0))
@@ -54,12 +17,9 @@ Built with WinForms on .NET 10, with a native dark theme and fully async databas
   - MySQL or MariaDB (compatible with MySqlConnector)
 - Read access to the game database (Arcadia resources + Telecaster character/item data + Auth accounts)
 
----
+### Installation
 
-## Installation
-
-### Option A — Run from source
-
+**Option A — Run from source**
 ```bash
 git clone https://github.com/your-org/YSM-GMTool.git
 cd YSM-GMTool
@@ -67,41 +27,77 @@ dotnet restore YSM-GMTool.slnx
 dotnet run --project src/App.WinForms/App.WinForms.csproj
 ```
 
-### Option B — Release build (auto-publish to Desktop)
-
+**Option B — Release build (auto-publish to Desktop)**
 ```bash
 dotnet build src/App.WinForms/App.WinForms.csproj -c Release
 ```
-
-The Release build automatically publishes a self-contained executable to:
-```
-%USERPROFILE%\Desktop\GM Tool\
-```
-
-> If the build fails with a file-lock error, close **GM Tool.exe** from that folder and retry.
+*The Release build automatically publishes a self-contained executable to `%USERPROFILE%\Desktop\GM Tool\`. If the build fails with a file-lock error, close `GM Tool.exe` from that folder and retry.*
 
 ---
 
-## First-time Setup
+## 🛠️ First-time Setup
 
 1. Launch the application.
 2. Click the **Settings** icon (top-right of the sidebar).
 3. In the **Connection** tab:
    - Select provider: `MSSQL` or `MySQL`
    - Enter server, port, database, username, password
-   - Click **Test Connection** to verify
-   - Click **OK** to save
-4. In the **Table Names** tab, fill in the token values that match your server's schema:
-   - `Arcadia Name` — resource DB name (e.g. `ArcadiaDB`)
-   - `Telecaster Name` — character/item DB name (e.g. `TelecasterDB`)
-   - `Auth Name` — account DB name (e.g. `AuthDB`)
-   - `StringResource` — string table name (e.g. `StringResource`)
-   - `ItemResource`, `SkillResource`, `StateResource`, `NpcResource`, `SummonResource`, `MonsterResource`
-5. Go to any tab and start using the tool.
+   - Click **Test Connection** to verify then click **OK** to save.
+4. In the **Table Names** tab, fill in the token values that match your server's schema.
+
+![Settings](Images/Settings.png)
 
 ---
 
-## Configuration
+## 🌟 Functionality & Features
+
+### Playerchecker
+Search characters by account name or character name. View ONLINE/OFFLINE status, load inventory, load warehouse, or open quick info.
+- **SQL-level search** — queries run directly against the DB as you type (debounced).
+- **Two search modes**: `by Account` or `by Char Name`.
+- **Load Inventory / Warehouse** — inspect player items directly.
+
+![Playerchecker](Images/Playerchecker.png)
+
+### Items
+Browse all items. Give to yourself or other players, edit level/enhance/appearance/itemcode.
+
+![Items](Images/items.png)
+
+### Monster
+Browse all monsters by name, ID, or location. Generate spawn commands.
+
+![Monster](Images/Monster.png)
+
+### Skills
+Browse skills. Learn, set level, remove — for yourself or another player.
+
+![Skills](Images/Skills.png)
+
+### Buffs
+Browse all buff/state records. Apply/remove buffs, world states, and event states.
+
+![Buffs](Images/Buffs.png)
+
+### NPCs & Summons
+Browse NPCs with contact script search. Generate add/show/warp commands. Browse summons and their card items to insert or stage summons.
+
+![NPCs](Images/NPCs.png)
+![Summons](Images/Summons.png)
+
+### General Features & Quality of Life
+- **Double-Click Export:** Double-clicking any cell inside a database datagrid instantly copies its string value to the OS clipboard.
+- **In-Memory Limits Toggle:** Limit DataGridView results strictly to 1000 items (via General Options tab) to ensure high-performance rendering while keeping the entire database subset fully searchable.
+- **Real-time Filtering Toggle:** Choose between search-as-you-type debounced filtering, or exact Search button submissions.
+
+### Command Generation & Sidebar
+- Every action builds a Lua command from a configurable `lua_commands.json` template and copies it to clipboard.
+- Optional `/run` prefix: when **Append /run to commands** is checked, the `/run ` prefix is added to all non-comment commands.
+- Manage a list of target players (add/remove from the right sidebar) to use as targets for multi-player commands.
+
+---
+
+## ⚙️ Configuration
 
 ### SQL Queries — `src/App.WinForms/Config/queries.json`
 
@@ -139,7 +135,7 @@ YSM_DB_CONNECTION_STRING=Server=localhost;Database=ArcadiaDB;User Id=sa;Password
 
 ---
 
-## Application Data
+## 📁 Application Data
 
 | Data | Path |
 |------|------|
@@ -148,7 +144,7 @@ YSM_DB_CONNECTION_STRING=Server=localhost;Database=ArcadiaDB;User Id=sa;Password
 
 ---
 
-## Project Structure
+## 🏗️ Project Structure
 
 ```
 src/
@@ -162,7 +158,7 @@ src/
 
 ---
 
-## Tech Stack
+## 💻 Tech Stack
 
 | Component | Library |
 |-----------|---------|
@@ -175,7 +171,7 @@ src/
 
 ---
 
-## Troubleshooting
+## 🔧 Troubleshooting
 
 | Problem | Solution |
 |---------|----------|

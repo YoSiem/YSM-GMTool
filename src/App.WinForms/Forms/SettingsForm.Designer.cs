@@ -53,6 +53,9 @@ partial class SettingsForm
     private Button btnTestConnection;
     private Button btnSave;
     private Button btnCancel;
+    private TabPage tabGeneral;
+    private TableLayoutPanel tlpGeneral;
+    private CheckBox chkLimitSelectQueries;
 
     protected override void Dispose(bool disposing)
     {
@@ -85,6 +88,9 @@ partial class SettingsForm
         chkIntegratedSecurity = new CheckBox();
         chkEncrypt = new CheckBox();
         chkTrustServerCertificate = new CheckBox();
+        tabGeneral = new TabPage();
+        tlpGeneral = new TableLayoutPanel();
+        chkLimitSelectQueries = new CheckBox();
         tabTables = new TabPage();
         tlpTables = new TableLayoutPanel();
         lblArcadiaName = new Label();
@@ -122,6 +128,8 @@ partial class SettingsForm
         tlpConnection.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)nudPort).BeginInit();
         tabTables.SuspendLayout();
+        tabGeneral.SuspendLayout();
+        tlpGeneral.SuspendLayout();
         tlpTables.SuspendLayout();
         flpButtons.SuspendLayout();
         SuspendLayout();
@@ -147,6 +155,7 @@ partial class SettingsForm
         // 
         tabSettings.Controls.Add(tabConnection);
         tabSettings.Controls.Add(tabTables);
+        tabSettings.Controls.Add(tabGeneral);
         tabSettings.Dock = DockStyle.Fill;
         tabSettings.Location = new Point(3, 3);
         tabSettings.Name = "tabSettings";
@@ -191,8 +200,6 @@ partial class SettingsForm
         tlpConnection.Controls.Add(txtTelecasterName, 1, 10);
         tlpConnection.Controls.Add(lblAuthName, 0, 11);
         tlpConnection.Controls.Add(txtAuthName, 1, 11);
-        tlpConnection.Controls.Add(lblAccountsName, 0, 12);
-        tlpConnection.Controls.Add(txtAccountsName, 1, 12);
         tlpConnection.Dock = DockStyle.Fill;
         tlpConnection.Location = new Point(8, 8);
         tlpConnection.Name = "tlpConnection";
@@ -377,31 +384,70 @@ partial class SettingsForm
         tabTables.Text = "Table Names";
         tabTables.UseVisualStyleBackColor = true;
         // 
+        // tabGeneral
+        // 
+        tabGeneral.Controls.Add(tlpGeneral);
+        tabGeneral.Location = new Point(4, 29);
+        tabGeneral.Name = "tabGeneral";
+        tabGeneral.Padding = new Padding(8);
+        tabGeneral.Size = new Size(886, 532);
+        tabGeneral.TabIndex = 2;
+        tabGeneral.Text = "General Options";
+        tabGeneral.UseVisualStyleBackColor = true;
+        // 
+        // tlpGeneral
+        // 
+        tlpGeneral.ColumnCount = 1;
+        tlpGeneral.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        tlpGeneral.Controls.Add(chkLimitSelectQueries, 0, 0);
+        tlpGeneral.Dock = DockStyle.Fill;
+        tlpGeneral.Location = new Point(8, 8);
+        tlpGeneral.Name = "tlpGeneral";
+        tlpGeneral.RowCount = 2;
+        tlpGeneral.RowStyles.Add(new RowStyle());
+        tlpGeneral.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+        tlpGeneral.Size = new Size(870, 516);
+        tlpGeneral.TabIndex = 0;
+        // 
+        // chkLimitSelectQueries
+        // 
+        chkLimitSelectQueries.AutoSize = true;
+        chkLimitSelectQueries.Location = new Point(3, 8);
+        chkLimitSelectQueries.Name = "chkLimitSelectQueries";
+        chkLimitSelectQueries.Size = new Size(250, 24);
+        chkLimitSelectQueries.TabIndex = 0;
+        chkLimitSelectQueries.Text = "Limit Select queries to 1000 items";
+        chkLimitSelectQueries.UseVisualStyleBackColor = true;
+        chkLimitSelectQueries.CheckedChanged += ConnectionField_Changed;
+        // 
         // tlpTables
         // 
         tlpTables.ColumnCount = 2;
         tlpTables.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 220F));
         tlpTables.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-        tlpTables.Controls.Add(lblCharacterResource, 0, 0);
-        tlpTables.Controls.Add(txtCharacterResource, 1, 0);
-        tlpTables.Controls.Add(lblMonsterResource, 0, 1);
-        tlpTables.Controls.Add(txtMonsterResource, 1, 1);
-        tlpTables.Controls.Add(lblStringResource, 0, 2);
-        tlpTables.Controls.Add(txtStringResource, 1, 2);
-        tlpTables.Controls.Add(lblItemResource, 0, 3);
-        tlpTables.Controls.Add(txtItemResource, 1, 3);
-        tlpTables.Controls.Add(lblSkillResource, 0, 4);
-        tlpTables.Controls.Add(txtSkillResource, 1, 4);
-        tlpTables.Controls.Add(lblStateResource, 0, 5);
-        tlpTables.Controls.Add(txtStateResource, 1, 5);
-        tlpTables.Controls.Add(lblNpcResource, 0, 6);
-        tlpTables.Controls.Add(txtNpcResource, 1, 6);
-        tlpTables.Controls.Add(lblSummonResource, 0, 7);
-        tlpTables.Controls.Add(txtSummonResource, 1, 7);
+        tlpTables.Controls.Add(lblAccountsName, 0, 0);
+        tlpTables.Controls.Add(txtAccountsName, 1, 0);
+        tlpTables.Controls.Add(lblCharacterResource, 0, 1);
+        tlpTables.Controls.Add(txtCharacterResource, 1, 1);
+        tlpTables.Controls.Add(lblMonsterResource, 0, 2);
+        tlpTables.Controls.Add(txtMonsterResource, 1, 2);
+        tlpTables.Controls.Add(lblStringResource, 0, 3);
+        tlpTables.Controls.Add(txtStringResource, 1, 3);
+        tlpTables.Controls.Add(lblItemResource, 0, 4);
+        tlpTables.Controls.Add(txtItemResource, 1, 4);
+        tlpTables.Controls.Add(lblSkillResource, 0, 5);
+        tlpTables.Controls.Add(txtSkillResource, 1, 5);
+        tlpTables.Controls.Add(lblStateResource, 0, 6);
+        tlpTables.Controls.Add(txtStateResource, 1, 6);
+        tlpTables.Controls.Add(lblNpcResource, 0, 7);
+        tlpTables.Controls.Add(txtNpcResource, 1, 7);
+        tlpTables.Controls.Add(lblSummonResource, 0, 8);
+        tlpTables.Controls.Add(txtSummonResource, 1, 8);
         tlpTables.Dock = DockStyle.Fill;
         tlpTables.Location = new Point(8, 8);
         tlpTables.Name = "tlpTables";
-        tlpTables.RowCount = 9;
+        tlpTables.RowCount = 10;
+        tlpTables.RowStyles.Add(new RowStyle());
         tlpTables.RowStyles.Add(new RowStyle());
         tlpTables.RowStyles.Add(new RowStyle());
         tlpTables.RowStyles.Add(new RowStyle());
@@ -472,7 +518,7 @@ partial class SettingsForm
         //
         lblAccountsName.Anchor = AnchorStyles.Left;
         lblAccountsName.AutoSize = true;
-        lblAccountsName.Location = new Point(3, 110);
+        lblAccountsName.Location = new Point(3, 8);
         lblAccountsName.Name = "lblAccountsName";
         lblAccountsName.Size = new Size(97, 20);
         lblAccountsName.TabIndex = 21;
@@ -481,7 +527,7 @@ partial class SettingsForm
         // txtAccountsName
         //
         txtAccountsName.Dock = DockStyle.Fill;
-        txtAccountsName.Location = new Point(223, 105);
+        txtAccountsName.Location = new Point(223, 3);
         txtAccountsName.Name = "txtAccountsName";
         txtAccountsName.Size = new Size(644, 27);
         txtAccountsName.TabIndex = 22;
@@ -490,7 +536,7 @@ partial class SettingsForm
         // 
         lblCharacterResource.Anchor = AnchorStyles.Left;
         lblCharacterResource.AutoSize = true;
-        lblCharacterResource.Location = new Point(3, 110);
+        lblCharacterResource.Location = new Point(3, 42);
         lblCharacterResource.Name = "lblCharacterResource";
         lblCharacterResource.Size = new Size(127, 20);
         lblCharacterResource.TabIndex = 6;
@@ -499,7 +545,7 @@ partial class SettingsForm
         // txtCharacterResource
         // 
         txtCharacterResource.Dock = DockStyle.Fill;
-        txtCharacterResource.Location = new Point(223, 105);
+        txtCharacterResource.Location = new Point(223, 37);
         txtCharacterResource.Name = "txtCharacterResource";
         txtCharacterResource.Size = new Size(644, 27);
         txtCharacterResource.TabIndex = 7;
@@ -508,7 +554,7 @@ partial class SettingsForm
         // 
         lblMonsterResource.Anchor = AnchorStyles.Left;
         lblMonsterResource.AutoSize = true;
-        lblMonsterResource.Location = new Point(3, 144);
+        lblMonsterResource.Location = new Point(3, 76);
         lblMonsterResource.Name = "lblMonsterResource";
         lblMonsterResource.Size = new Size(121, 20);
         lblMonsterResource.TabIndex = 8;
@@ -517,7 +563,7 @@ partial class SettingsForm
         // txtMonsterResource
         // 
         txtMonsterResource.Dock = DockStyle.Fill;
-        txtMonsterResource.Location = new Point(223, 139);
+        txtMonsterResource.Location = new Point(223, 71);
         txtMonsterResource.Name = "txtMonsterResource";
         txtMonsterResource.Size = new Size(644, 27);
         txtMonsterResource.TabIndex = 9;
@@ -526,7 +572,7 @@ partial class SettingsForm
         // 
         lblStringResource.Anchor = AnchorStyles.Left;
         lblStringResource.AutoSize = true;
-        lblStringResource.Location = new Point(3, 178);
+        lblStringResource.Location = new Point(3, 110);
         lblStringResource.Name = "lblStringResource";
         lblStringResource.Size = new Size(108, 20);
         lblStringResource.TabIndex = 10;
@@ -535,7 +581,7 @@ partial class SettingsForm
         // txtStringResource
         // 
         txtStringResource.Dock = DockStyle.Fill;
-        txtStringResource.Location = new Point(223, 173);
+        txtStringResource.Location = new Point(223, 105);
         txtStringResource.Name = "txtStringResource";
         txtStringResource.Size = new Size(644, 27);
         txtStringResource.TabIndex = 11;
@@ -544,7 +590,7 @@ partial class SettingsForm
         // 
         lblItemResource.Anchor = AnchorStyles.Left;
         lblItemResource.AutoSize = true;
-        lblItemResource.Location = new Point(3, 246);
+        lblItemResource.Location = new Point(3, 144);
         lblItemResource.Name = "lblItemResource";
         lblItemResource.Size = new Size(92, 20);
         lblItemResource.TabIndex = 14;
@@ -553,7 +599,7 @@ partial class SettingsForm
         // txtItemResource
         // 
         txtItemResource.Dock = DockStyle.Fill;
-        txtItemResource.Location = new Point(223, 241);
+        txtItemResource.Location = new Point(223, 139);
         txtItemResource.Name = "txtItemResource";
         txtItemResource.Size = new Size(644, 27);
         txtItemResource.TabIndex = 15;
@@ -562,7 +608,7 @@ partial class SettingsForm
         // 
         lblSkillResource.Anchor = AnchorStyles.Left;
         lblSkillResource.AutoSize = true;
-        lblSkillResource.Location = new Point(3, 280);
+        lblSkillResource.Location = new Point(3, 178);
         lblSkillResource.Name = "lblSkillResource";
         lblSkillResource.Size = new Size(93, 20);
         lblSkillResource.TabIndex = 16;
@@ -571,7 +617,7 @@ partial class SettingsForm
         // txtSkillResource
         // 
         txtSkillResource.Dock = DockStyle.Fill;
-        txtSkillResource.Location = new Point(223, 275);
+        txtSkillResource.Location = new Point(223, 173);
         txtSkillResource.Name = "txtSkillResource";
         txtSkillResource.Size = new Size(644, 27);
         txtSkillResource.TabIndex = 17;
@@ -580,7 +626,7 @@ partial class SettingsForm
         // 
         lblStateResource.Anchor = AnchorStyles.Left;
         lblStateResource.AutoSize = true;
-        lblStateResource.Location = new Point(3, 314);
+        lblStateResource.Location = new Point(3, 212);
         lblStateResource.Name = "lblStateResource";
         lblStateResource.Size = new Size(98, 20);
         lblStateResource.TabIndex = 18;
@@ -589,7 +635,7 @@ partial class SettingsForm
         // txtStateResource
         // 
         txtStateResource.Dock = DockStyle.Fill;
-        txtStateResource.Location = new Point(223, 309);
+        txtStateResource.Location = new Point(223, 207);
         txtStateResource.Name = "txtStateResource";
         txtStateResource.Size = new Size(644, 27);
         txtStateResource.TabIndex = 19;
@@ -598,7 +644,7 @@ partial class SettingsForm
         // 
         lblNpcResource.Anchor = AnchorStyles.Left;
         lblNpcResource.AutoSize = true;
-        lblNpcResource.Location = new Point(3, 348);
+        lblNpcResource.Location = new Point(3, 246);
         lblNpcResource.Name = "lblNpcResource";
         lblNpcResource.Size = new Size(90, 20);
         lblNpcResource.TabIndex = 20;
@@ -607,7 +653,7 @@ partial class SettingsForm
         // txtNpcResource
         // 
         txtNpcResource.Dock = DockStyle.Fill;
-        txtNpcResource.Location = new Point(223, 343);
+        txtNpcResource.Location = new Point(223, 241);
         txtNpcResource.Name = "txtNpcResource";
         txtNpcResource.Size = new Size(644, 27);
         txtNpcResource.TabIndex = 21;
@@ -616,7 +662,7 @@ partial class SettingsForm
         // 
         lblSummonResource.Anchor = AnchorStyles.Left;
         lblSummonResource.AutoSize = true;
-        lblSummonResource.Location = new Point(3, 382);
+        lblSummonResource.Location = new Point(3, 280);
         lblSummonResource.Name = "lblSummonResource";
         lblSummonResource.Size = new Size(119, 20);
         lblSummonResource.TabIndex = 22;
@@ -625,7 +671,7 @@ partial class SettingsForm
         // txtSummonResource
         // 
         txtSummonResource.Dock = DockStyle.Fill;
-        txtSummonResource.Location = new Point(223, 377);
+        txtSummonResource.Location = new Point(223, 275);
         txtSummonResource.Name = "txtSummonResource";
         txtSummonResource.Size = new Size(644, 27);
         txtSummonResource.TabIndex = 23;
@@ -704,6 +750,9 @@ partial class SettingsForm
         tlpConnection.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)nudPort).EndInit();
         tabTables.ResumeLayout(false);
+        tabGeneral.ResumeLayout(false);
+        tlpGeneral.ResumeLayout(false);
+        tlpGeneral.PerformLayout();
         tlpTables.ResumeLayout(false);
         tlpTables.PerformLayout();
         flpButtons.ResumeLayout(false);

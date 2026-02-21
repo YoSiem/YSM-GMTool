@@ -19,6 +19,8 @@ public sealed class AppSettings
 
     public bool AppendGeneratedCommands { get; set; } = true;
 
+    public bool LimitSelectQueries { get; set; } = true;
+
     public AppSettings Clone() => new()
     {
         Provider = Provider,
@@ -27,6 +29,7 @@ public sealed class AppSettings
         TableNames = (TableNames ?? new TableNameSettings()).Clone(),
         Players = Players is null ? [] : [.. Players],
         SelectedPlayer = SelectedPlayer,
-        AppendGeneratedCommands = AppendGeneratedCommands
+        AppendGeneratedCommands = AppendGeneratedCommands,
+        LimitSelectQueries = LimitSelectQueries
     };
 }
