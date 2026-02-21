@@ -6,7 +6,7 @@ public sealed class DatabaseConnectionSettings
 
     public int Port { get; set; } = 1433;
 
-    public string Database { get; set; } = "HeavenDB";
+    public string Database { get; set; } = string.Empty;
 
     public string UserId { get; set; } = string.Empty;
 

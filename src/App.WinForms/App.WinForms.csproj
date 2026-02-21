@@ -46,7 +46,7 @@
     <MakeDir Directories="$(AutoPublishDir)" />
     <MSBuild Projects="$(MSBuildProjectFullPath)"
              Targets="Publish"
-             Properties="Configuration=$(Configuration);IsAutoPublishInvocation=true;PublishDir=$(AutoPublishDir);RuntimeIdentifier=win-x64;SelfContained=false;PublishSingleFile=false;UseAppHost=true;CopyOutputSymbolsToPublishDirectory=false;DebugType=None;SatelliteResourceLanguages=$(AutoPublishSatelliteLanguages)"
+             Properties="Configuration=$(Configuration);IsAutoPublishInvocation=true;PublishDir=$(AutoPublishDir);RuntimeIdentifier=win-x64;SelfContained=false;PublishSingleFile=true;IncludeNativeLibrariesForSelfExtract=true;UseAppHost=true;CopyOutputSymbolsToPublishDirectory=false;DebugType=None;SatelliteResourceLanguages=$(AutoPublishSatelliteLanguages)"
              StopOnFirstFailure="true" />
     <Copy SourceFiles="$(RepositoryRoot)\.env"
           DestinationFolder="$(AutoPublishDir)"
