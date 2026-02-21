@@ -487,7 +487,6 @@ public partial class MainForm : Form
 
     private void WireActionEvents()
     {
-        _playerCheckerActions.CreateCheckCommandRequested += PlayerCheckerActions_CreateCheckCommandRequested;
         _playerCheckerActions.LoadInventoryRequested += PlayerCheckerActions_LoadInventoryRequested;
         _playerCheckerActions.LoadWarehouseRequested += PlayerCheckerActions_LoadWarehouseRequested;
         _playerCheckerActions.OpenInfosRequested += PlayerCheckerActions_OpenInfosRequested;
@@ -599,26 +598,6 @@ public partial class MainForm : Form
     private void OnPresenterError(object? sender, Exception ex)
     {
         ShowError("Data operation failed.", ex);
-    }
-
-    private void PlayerCheckerActions_CreateCheckCommandRequested(object? sender, EventArgs e)
-    {
-        var playerName = _playerCheckerActions.PlayerName;
-        if (string.IsNullOrWhiteSpace(playerName))
-        {
-            playerName = _selectedPlayerRecord?.PlayerName ?? ResolveTargetPlayer();
-        }
-
-        if (string.IsNullOrWhiteSpace(playerName) || playerName.Equals("self", StringComparison.OrdinalIgnoreCase))
-        {
-            MessageBox.Show(this, "Select or type a player name first.", "Playerchecker", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            return;
-        }
-
-        BuildAndDispatchCommand("playerCheck", new Dictionary<string, object?>
-        {
-            ["name"] = playerName
-        });
     }
 
     private async void PlayerCheckerActions_LoadInventoryRequested(object? sender, EventArgs e)

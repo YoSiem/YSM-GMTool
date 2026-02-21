@@ -55,7 +55,7 @@ partial class EntityBrowserControl
         splitMain.Location = new Point(0, 0);
         splitMain.Name = "splitMain";
         splitMain.Panel1MinSize = 320;
-        splitMain.Panel2MinSize = 430;
+        splitMain.Panel2MinSize = 360;
         // 
         // splitMain.Panel1
         // 
