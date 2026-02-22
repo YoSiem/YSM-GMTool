@@ -274,7 +274,7 @@ partial class MonsterActionsControl
         btnCreateSpawnCommand.Dock = DockStyle.Top;
         btnCreateSpawnCommand.Location = new Point(3, 269);
         btnCreateSpawnCommand.Name = "btnCreateSpawnCommand";
-        btnCreateSpawnCommand.Size = new Size(418, 34);
+        btnCreateSpawnCommand.Size = new Size(418, 36);
         btnCreateSpawnCommand.TabIndex = 15;
         btnCreateSpawnCommand.Text = "Create Command";
         btnCreateSpawnCommand.UseVisualStyleBackColor = true;
@@ -287,6 +287,8 @@ partial class MonsterActionsControl
         Controls.Add(gbMonsterActions);
         Name = "MonsterActionsControl";
         Size = new Size(430, 370);
+        AutoSize = true;
+        AutoSizeMode = AutoSizeMode.GrowAndShrink;
         gbMonsterActions.ResumeLayout(false);
         tlp.ResumeLayout(false);
         tlp.PerformLayout();

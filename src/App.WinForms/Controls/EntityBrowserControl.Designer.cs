@@ -113,7 +113,7 @@ partial class EntityBrowserControl
         gbSearch.Size = new Size(470, 140);
         gbSearch.TabIndex = 0;
         gbSearch.TabStop = false;
-        gbSearch.Text = "Search";
+        gbSearch.Text = "Search Actions";
         // 
         // btnLoadAll
         // 
@@ -197,7 +197,6 @@ partial class EntityBrowserControl
         pnlActionsHost.Dock = DockStyle.Fill;
         pnlActionsHost.Location = new Point(3, 149);
         pnlActionsHost.Name = "pnlActionsHost";
-        pnlActionsHost.Padding = new Padding(8);
         pnlActionsHost.Size = new Size(470, 461);
         pnlActionsHost.TabIndex = 1;
         // 

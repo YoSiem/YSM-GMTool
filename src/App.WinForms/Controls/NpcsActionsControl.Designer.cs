@@ -274,7 +274,7 @@ partial class NpcsActionsControl
         gbCommands.Dock = DockStyle.Fill;
         gbCommands.Location = new Point(3, 203);
         gbCommands.Name = "gbCommands";
-        gbCommands.Size = new Size(568, 96);
+        gbCommands.Size = new Size(568, 62);
         gbCommands.TabIndex = 1;
         gbCommands.TabStop = false;
         gbCommands.Text = "Actions";
@@ -292,16 +292,16 @@ partial class NpcsActionsControl
         tlpCommands.Location = new Point(3, 23);
         tlpCommands.Name = "tlpCommands";
         tlpCommands.RowCount = 1;
-        tlpCommands.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-        tlpCommands.Size = new Size(562, 70);
+        tlpCommands.RowStyles.Add(new RowStyle());
+        tlpCommands.Size = new Size(562, 40);
         tlpCommands.TabIndex = 0;
         // 
         // btnAddNpcToWorld
         // 
-        btnAddNpcToWorld.Dock = DockStyle.Fill;
+        btnAddNpcToWorld.Dock = DockStyle.Top;
         btnAddNpcToWorld.Location = new Point(3, 3);
         btnAddNpcToWorld.Name = "btnAddNpcToWorld";
-        btnAddNpcToWorld.Size = new Size(181, 64);
+        btnAddNpcToWorld.Size = new Size(181, 36);
         btnAddNpcToWorld.TabIndex = 0;
         btnAddNpcToWorld.Text = "Add NPC to world";
         btnAddNpcToWorld.UseVisualStyleBackColor = true;
@@ -309,10 +309,10 @@ partial class NpcsActionsControl
         // 
         // btnShowNpc
         // 
-        btnShowNpc.Dock = DockStyle.Fill;
+        btnShowNpc.Dock = DockStyle.Top;
         btnShowNpc.Location = new Point(190, 3);
         btnShowNpc.Name = "btnShowNpc";
-        btnShowNpc.Size = new Size(181, 64);
+        btnShowNpc.Size = new Size(181, 36);
         btnShowNpc.TabIndex = 1;
         btnShowNpc.Text = "Show/Hide NPC";
         btnShowNpc.UseVisualStyleBackColor = true;
@@ -320,10 +320,10 @@ partial class NpcsActionsControl
         // 
         // btnWarpToNpc
         // 
-        btnWarpToNpc.Dock = DockStyle.Fill;
+        btnWarpToNpc.Dock = DockStyle.Top;
         btnWarpToNpc.Location = new Point(377, 3);
         btnWarpToNpc.Name = "btnWarpToNpc";
-        btnWarpToNpc.Size = new Size(182, 64);
+        btnWarpToNpc.Size = new Size(182, 36);
         btnWarpToNpc.TabIndex = 2;
         btnWarpToNpc.Text = "Warp to NPC";
         btnWarpToNpc.UseVisualStyleBackColor = true;
@@ -334,9 +334,11 @@ partial class NpcsActionsControl
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
         Controls.Add(gbNpcActions);
-        MinimumSize = new Size(560, 430);
+        MinimumSize = new Size(400, 0);
         Name = "NpcsActionsControl";
-        Size = new Size(580, 430);
+        Size = new Size(580, 380);
+        AutoSize = true;
+        AutoSizeMode = AutoSizeMode.GrowAndShrink;
         gbNpcActions.ResumeLayout(false);
         tlpRoot.ResumeLayout(false);
         gbSelectedNpc.ResumeLayout(false);

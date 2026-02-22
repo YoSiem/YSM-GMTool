@@ -279,7 +279,7 @@ partial class BuffsActionsControl
         // 
         btnAddTimedWorldState.Location = new Point(3, 3);
         btnAddTimedWorldState.Name = "btnAddTimedWorldState";
-        btnAddTimedWorldState.Size = new Size(190, 30);
+        btnAddTimedWorldState.Size = new Size(190, 36);
         btnAddTimedWorldState.TabIndex = 0;
         btnAddTimedWorldState.Text = "Add Timed World State";
         btnAddTimedWorldState.UseVisualStyleBackColor = true;
@@ -289,7 +289,7 @@ partial class BuffsActionsControl
         // 
         btnAddEventState.Location = new Point(3, 39);
         btnAddEventState.Name = "btnAddEventState";
-        btnAddEventState.Size = new Size(190, 30);
+        btnAddEventState.Size = new Size(190, 36);
         btnAddEventState.TabIndex = 1;
         btnAddEventState.Text = "Add Event State";
         btnAddEventState.UseVisualStyleBackColor = true;
@@ -299,7 +299,7 @@ partial class BuffsActionsControl
         // 
         btnRemoveEventState.Location = new Point(3, 75);
         btnRemoveEventState.Name = "btnRemoveEventState";
-        btnRemoveEventState.Size = new Size(190, 30);
+        btnRemoveEventState.Size = new Size(190, 36);
         btnRemoveEventState.TabIndex = 2;
         btnRemoveEventState.Text = "Remove Event State";
         btnRemoveEventState.UseVisualStyleBackColor = true;
@@ -363,7 +363,7 @@ partial class BuffsActionsControl
         btnAddBuff.Dock = DockStyle.Fill;
         btnAddBuff.Location = new Point(3, 63);
         btnAddBuff.Name = "btnAddBuff";
-        btnAddBuff.Size = new Size(191, 30);
+        btnAddBuff.Size = new Size(191, 36);
         btnAddBuff.TabIndex = 2;
         btnAddBuff.Text = "Add Buff";
         btnAddBuff.UseVisualStyleBackColor = true;
@@ -374,7 +374,7 @@ partial class BuffsActionsControl
         btnRemoveBuff.Dock = DockStyle.Fill;
         btnRemoveBuff.Location = new Point(3, 99);
         btnRemoveBuff.Name = "btnRemoveBuff";
-        btnRemoveBuff.Size = new Size(191, 30);
+        btnRemoveBuff.Size = new Size(191, 36);
         btnRemoveBuff.TabIndex = 3;
         btnRemoveBuff.Text = "Remove Buff";
         btnRemoveBuff.UseVisualStyleBackColor = true;
@@ -387,6 +387,8 @@ partial class BuffsActionsControl
         Controls.Add(gbBuffActions);
         Name = "BuffsActionsControl";
         Size = new Size(430, 350);
+        AutoSize = true;
+        AutoSizeMode = AutoSizeMode.GrowAndShrink;
         gbBuffActions.ResumeLayout(false);
         tlpRoot.ResumeLayout(false);
         gbSelected.ResumeLayout(false);

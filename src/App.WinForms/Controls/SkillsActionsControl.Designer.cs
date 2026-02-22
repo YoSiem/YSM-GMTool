@@ -197,7 +197,7 @@ partial class SkillsActionsControl
         // 
         btnLearnSkill.Location = new Point(3, 3);
         btnLearnSkill.Name = "btnLearnSkill";
-        btnLearnSkill.Size = new Size(196, 34);
+        btnLearnSkill.Size = new Size(196, 36);
         btnLearnSkill.TabIndex = 0;
         btnLearnSkill.Text = "Learn skill";
         btnLearnSkill.UseVisualStyleBackColor = true;
@@ -207,7 +207,7 @@ partial class SkillsActionsControl
         // 
         btnSetSkill.Location = new Point(205, 3);
         btnSetSkill.Name = "btnSetSkill";
-        btnSetSkill.Size = new Size(196, 34);
+        btnSetSkill.Size = new Size(196, 36);
         btnSetSkill.TabIndex = 1;
         btnSetSkill.Text = "Set skill level";
         btnSetSkill.UseVisualStyleBackColor = true;
@@ -217,7 +217,7 @@ partial class SkillsActionsControl
         // 
         btnRemoveSkill.Location = new Point(3, 43);
         btnRemoveSkill.Name = "btnRemoveSkill";
-        btnRemoveSkill.Size = new Size(196, 34);
+        btnRemoveSkill.Size = new Size(196, 36);
         btnRemoveSkill.TabIndex = 2;
         btnRemoveSkill.Text = "Remove skill";
         btnRemoveSkill.UseVisualStyleBackColor = true;
@@ -227,7 +227,7 @@ partial class SkillsActionsControl
         // 
         btnLearnAllJobSkills.Location = new Point(205, 43);
         btnLearnAllJobSkills.Name = "btnLearnAllJobSkills";
-        btnLearnAllJobSkills.Size = new Size(196, 34);
+        btnLearnAllJobSkills.Size = new Size(196, 36);
         btnLearnAllJobSkills.TabIndex = 3;
         btnLearnAllJobSkills.Text = "Learn all skill";
         btnLearnAllJobSkills.UseVisualStyleBackColor = true;
@@ -288,7 +288,7 @@ partial class SkillsActionsControl
         btnLearnCreatureSkill.Dock = DockStyle.Fill;
         btnLearnCreatureSkill.Location = new Point(3, 36);
         btnLearnCreatureSkill.Name = "btnLearnCreatureSkill";
-        btnLearnCreatureSkill.Size = new Size(406, 34);
+        btnLearnCreatureSkill.Size = new Size(406, 36);
         btnLearnCreatureSkill.TabIndex = 2;
         btnLearnCreatureSkill.Text = "Learn creature skill";
         btnLearnCreatureSkill.UseVisualStyleBackColor = true;
@@ -300,7 +300,7 @@ partial class SkillsActionsControl
         btnLearnCreatureAllSkill.Dock = DockStyle.Fill;
         btnLearnCreatureAllSkill.Location = new Point(3, 76);
         btnLearnCreatureAllSkill.Name = "btnLearnCreatureAllSkill";
-        btnLearnCreatureAllSkill.Size = new Size(406, 34);
+        btnLearnCreatureAllSkill.Size = new Size(406, 36);
         btnLearnCreatureAllSkill.TabIndex = 3;
         btnLearnCreatureAllSkill.Text = "Learn creature all skill";
         btnLearnCreatureAllSkill.UseVisualStyleBackColor = true;
@@ -313,6 +313,8 @@ partial class SkillsActionsControl
         Controls.Add(gbSkillsActions);
         Name = "SkillsActionsControl";
         Size = new Size(430, 426);
+        AutoSize = true;
+        AutoSizeMode = AutoSizeMode.GrowAndShrink;
         gbSkillsActions.ResumeLayout(false);
         tlpRoot.ResumeLayout(false);
         gbSelected.ResumeLayout(false);

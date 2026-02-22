@@ -77,16 +77,16 @@ partial class PlayerCheckerActionsControl
         tlpLoadButtons.Location = new Point(3, 3);
         tlpLoadButtons.Name = "tlpLoadButtons";
         tlpLoadButtons.RowCount = 1;
-        tlpLoadButtons.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-        tlpLoadButtons.Size = new Size(348, 35);
+        tlpLoadButtons.RowStyles.Add(new RowStyle());
+        tlpLoadButtons.Size = new Size(348, 36);
         tlpLoadButtons.TabIndex = 1;
         //
         // btnLoadAllCharacters
         //
-        btnLoadAllCharacters.Dock = DockStyle.Fill;
+        btnLoadAllCharacters.Dock = DockStyle.Top;
         btnLoadAllCharacters.Location = new Point(3, 3);
         btnLoadAllCharacters.Name = "btnLoadAllCharacters";
-        btnLoadAllCharacters.Size = new Size(168, 29);
+        btnLoadAllCharacters.Size = new Size(168, 36);
         btnLoadAllCharacters.TabIndex = 0;
         btnLoadAllCharacters.Text = "Load All Characters";
         btnLoadAllCharacters.UseVisualStyleBackColor = true;
@@ -94,10 +94,10 @@ partial class PlayerCheckerActionsControl
         //
         // btnLoadOnlineCharacters
         //
-        btnLoadOnlineCharacters.Dock = DockStyle.Fill;
+        btnLoadOnlineCharacters.Dock = DockStyle.Top;
         btnLoadOnlineCharacters.Location = new Point(177, 3);
         btnLoadOnlineCharacters.Name = "btnLoadOnlineCharacters";
-        btnLoadOnlineCharacters.Size = new Size(168, 29);
+        btnLoadOnlineCharacters.Size = new Size(168, 36);
         btnLoadOnlineCharacters.TabIndex = 1;
         btnLoadOnlineCharacters.Text = "Load Online Characters";
         btnLoadOnlineCharacters.UseVisualStyleBackColor = true;
@@ -116,16 +116,16 @@ partial class PlayerCheckerActionsControl
         tlpActionButtons.Location = new Point(3, 44);
         tlpActionButtons.Name = "tlpActionButtons";
         tlpActionButtons.RowCount = 1;
-        tlpActionButtons.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-        tlpActionButtons.Size = new Size(348, 35);
+        tlpActionButtons.RowStyles.Add(new RowStyle());
+        tlpActionButtons.Size = new Size(348, 36);
         tlpActionButtons.TabIndex = 0;
         //
         // btnLoadInventory
         //
-        btnLoadInventory.Dock = DockStyle.Fill;
+        btnLoadInventory.Dock = DockStyle.Top;
         btnLoadInventory.Location = new Point(3, 3);
         btnLoadInventory.Name = "btnLoadInventory";
-        btnLoadInventory.Size = new Size(109, 29);
+        btnLoadInventory.Size = new Size(109, 36);
         btnLoadInventory.TabIndex = 0;
         btnLoadInventory.Text = "Load inventory";
         btnLoadInventory.UseVisualStyleBackColor = true;
@@ -133,10 +133,10 @@ partial class PlayerCheckerActionsControl
         //
         // btnLoadWh
         //
-        btnLoadWh.Dock = DockStyle.Fill;
+        btnLoadWh.Dock = DockStyle.Top;
         btnLoadWh.Location = new Point(118, 3);
         btnLoadWh.Name = "btnLoadWh";
-        btnLoadWh.Size = new Size(109, 29);
+        btnLoadWh.Size = new Size(109, 36);
         btnLoadWh.TabIndex = 1;
         btnLoadWh.Text = "Load WH";
         btnLoadWh.UseVisualStyleBackColor = true;
@@ -144,10 +144,10 @@ partial class PlayerCheckerActionsControl
         //
         // btnOpenInfos
         //
-        btnOpenInfos.Dock = DockStyle.Fill;
+        btnOpenInfos.Dock = DockStyle.Top;
         btnOpenInfos.Location = new Point(233, 3);
         btnOpenInfos.Name = "btnOpenInfos";
-        btnOpenInfos.Size = new Size(112, 29);
+        btnOpenInfos.Size = new Size(112, 36);
         btnOpenInfos.TabIndex = 2;
         btnOpenInfos.Text = "Open infos";
         btnOpenInfos.UseVisualStyleBackColor = true;
@@ -160,6 +160,8 @@ partial class PlayerCheckerActionsControl
         Controls.Add(gbPlayerChecker);
         Name = "PlayerCheckerActionsControl";
         Size = new Size(360, 120);
+        AutoSize = true;
+        AutoSizeMode = AutoSizeMode.GrowAndShrink;
         gbPlayerChecker.ResumeLayout(false);
         tlp.ResumeLayout(false);
         tlp.PerformLayout();

@@ -220,41 +220,28 @@ public partial class MainForm : Form
 
     private static void AddActionControl(EntityBrowserControl browser, Control control)
     {
-        control.Dock = DockStyle.Top;
-        control.Margin = new Padding(0, 0, 0, 8);
+        control.Dock = DockStyle.None;
+        control.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
         browser.ActionsHostPanel.Controls.Add(control);
 
-        ResizeActionControlToContent(browser.ActionsHostPanel, control);
-        browser.ActionsHostPanel.Resize += (_, _) => ResizeActionControlToContent(browser.ActionsHostPanel, control);
+        ApplyActionControlWidth(browser.ActionsHostPanel, control);
+        browser.ActionsHostPanel.Resize += (_, _) => ApplyActionControlWidth(browser.ActionsHostPanel, control);
     }
 
-    private static void ResizeActionControlToContent(Control host, Control control)
+    private static void ApplyActionControlWidth(Control host, Control control)
     {
-        if (control.IsDisposed)
+        if (control.IsDisposed || host.ClientSize.Width <= 0)
         {
             return;
         }
 
-        var targetWidth = Math.Max(120, host.ClientSize.Width - host.Padding.Horizontal - control.Margin.Horizontal);
+        // 97% of parent width, centered
+        var targetWidth = (int)(host.ClientSize.Width * 0.97);
+        targetWidth = Math.Max(120, targetWidth);
+        int leftPad = (host.ClientSize.Width - targetWidth) / 2;
+
+        control.Location = new Point(leftPad, control.Location.Y);
         control.Width = targetWidth;
-
-        var preferredHeight = control.GetPreferredSize(new Size(targetWidth, 0)).Height;
-        var measuredHeight = MeasureRequiredHeight(control);
-        var minHeight = control.MinimumSize.Height;
-        control.Height = Math.Max(minHeight, Math.Max(preferredHeight, measuredHeight));
-    }
-
-    private static int MeasureRequiredHeight(Control control)
-    {
-        var requiredBottom = control.Padding.Top;
-        foreach (Control child in control.Controls)
-        {
-            var childRequiredHeight = MeasureRequiredHeight(child);
-            var childBottom = child.Top + Math.Max(child.Height, childRequiredHeight) + child.Margin.Bottom;
-            requiredBottom = Math.Max(requiredBottom, childBottom);
-        }
-
-        return Math.Max(control.MinimumSize.Height, requiredBottom + control.Padding.Bottom);
     }
 
     private void ConfigureBrowserColumns()

@@ -340,7 +340,7 @@ partial class ItemsActionsControl
         btnAddYourself.Dock = DockStyle.Fill;
         btnAddYourself.Location = new Point(3, 105);
         btnAddYourself.Name = "btnAddYourself";
-        btnAddYourself.Size = new Size(178, 34);
+        btnAddYourself.Size = new Size(178, 36);
         btnAddYourself.TabIndex = 12;
         btnAddYourself.Text = "Add yourself";
         btnAddYourself.UseVisualStyleBackColor = true;
@@ -352,7 +352,7 @@ partial class ItemsActionsControl
         btnGiveOtherPlayer.Dock = DockStyle.Fill;
         btnGiveOtherPlayer.Location = new Point(187, 105);
         btnGiveOtherPlayer.Name = "btnGiveOtherPlayer";
-        btnGiveOtherPlayer.Size = new Size(238, 34);
+        btnGiveOtherPlayer.Size = new Size(238, 36);
         btnGiveOtherPlayer.TabIndex = 13;
         btnGiveOtherPlayer.Text = "Give other player";
         btnGiveOtherPlayer.UseVisualStyleBackColor = true;
@@ -522,7 +522,7 @@ partial class ItemsActionsControl
         // 
         btnEditLevel.Location = new Point(3, 3);
         btnEditLevel.Name = "btnEditLevel";
-        btnEditLevel.Size = new Size(115, 34);
+        btnEditLevel.Size = new Size(115, 36);
         btnEditLevel.TabIndex = 0;
         btnEditLevel.Text = "Edit level";
         btnEditLevel.UseVisualStyleBackColor = true;
@@ -532,7 +532,7 @@ partial class ItemsActionsControl
         // 
         btnEditEnhance.Location = new Point(124, 3);
         btnEditEnhance.Name = "btnEditEnhance";
-        btnEditEnhance.Size = new Size(115, 34);
+        btnEditEnhance.Size = new Size(115, 36);
         btnEditEnhance.TabIndex = 1;
         btnEditEnhance.Text = "Edit Enhance";
         btnEditEnhance.UseVisualStyleBackColor = true;
@@ -542,7 +542,7 @@ partial class ItemsActionsControl
         // 
         btnChangeAppearance.Location = new Point(245, 3);
         btnChangeAppearance.Name = "btnChangeAppearance";
-        btnChangeAppearance.Size = new Size(174, 34);
+        btnChangeAppearance.Size = new Size(174, 36);
         btnChangeAppearance.TabIndex = 2;
         btnChangeAppearance.Text = "Change appearance";
         btnChangeAppearance.UseVisualStyleBackColor = true;
@@ -552,7 +552,7 @@ partial class ItemsActionsControl
         // 
         btnChangeItemCode.Location = new Point(3, 43);
         btnChangeItemCode.Name = "btnChangeItemCode";
-        btnChangeItemCode.Size = new Size(236, 40);
+        btnChangeItemCode.Size = new Size(236, 36);
         btnChangeItemCode.TabIndex = 3;
         btnChangeItemCode.Text = "Change itemcode of targeted wear-slot";
         btnChangeItemCode.UseVisualStyleBackColor = true;
@@ -605,6 +605,8 @@ partial class ItemsActionsControl
         Controls.Add(gbItemActions);
         Name = "ItemsActionsControl";
         Size = new Size(460, 560);
+        AutoSize = true;
+        AutoSizeMode = AutoSizeMode.GrowAndShrink;
         gbItemActions.ResumeLayout(false);
         tabItemsActions.ResumeLayout(false);
         tabItem.ResumeLayout(false);

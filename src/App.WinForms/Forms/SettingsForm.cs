@@ -243,9 +243,7 @@ public partial class SettingsForm : Form
     {
         try
         {
-            var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            var appDirectory = Path.Combine(localAppData, "YSM-GMTool");
-            Directory.CreateDirectory(appDirectory);
+            var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
             var envPath = Path.Combine(appDirectory, ".env");
 
             File.WriteAllLines(envPath, new[]

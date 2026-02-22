@@ -177,7 +177,7 @@ partial class SummonsActionsControl
         btnAddSummon.Dock = DockStyle.Fill;
         btnAddSummon.Location = new Point(182, 37);
         btnAddSummon.Name = "btnAddSummon";
-        btnAddSummon.Size = new Size(227, 29);
+        btnAddSummon.Size = new Size(227, 36);
         btnAddSummon.TabIndex = 5;
         btnAddSummon.Text = "Add Summon";
         btnAddSummon.UseVisualStyleBackColor = true;
@@ -260,7 +260,7 @@ partial class SummonsActionsControl
         btnStageSummon.Dock = DockStyle.Fill;
         btnStageSummon.Location = new Point(3, 70);
         btnStageSummon.Name = "btnStageSummon";
-        btnStageSummon.Size = new Size(406, 29);
+        btnStageSummon.Size = new Size(406, 36);
         btnStageSummon.TabIndex = 4;
         btnStageSummon.Text = "Stage Summon";
         btnStageSummon.UseVisualStyleBackColor = true;
@@ -271,9 +271,11 @@ partial class SummonsActionsControl
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
         Controls.Add(gbSummonActions);
-        MinimumSize = new Size(430, 320);
+        MinimumSize = new Size(430, 0);
         Name = "SummonsActionsControl";
         Size = new Size(430, 320);
+        AutoSize = true;
+        AutoSizeMode = AutoSizeMode.GrowAndShrink;
         gbSummonActions.ResumeLayout(false);
         tlpRoot.ResumeLayout(false);
         gbAddSummon.ResumeLayout(false);
