@@ -613,7 +613,16 @@ public partial class MainForm : Form
             _settings.ConnectionString = connectionString.Trim();
             if (_connectionStringBuilder.TryParse(_settings.Provider, _settings.ConnectionString, out var parsed))
             {
-                _settings.Connection = parsed;
+                // Merge individual fields so credentials saved in settings.json are not
+                // overwritten by an old or credential-less .env entry.
+                if (!string.IsNullOrWhiteSpace(parsed.Server)) _settings.Connection.Server = parsed.Server;
+                if (parsed.Port > 0) _settings.Connection.Port = parsed.Port;
+                if (!string.IsNullOrWhiteSpace(parsed.Database)) _settings.Connection.Database = parsed.Database;
+                if (!string.IsNullOrWhiteSpace(parsed.UserId)) _settings.Connection.UserId = parsed.UserId;
+                if (!string.IsNullOrWhiteSpace(parsed.Password)) _settings.Connection.Password = parsed.Password;
+                _settings.Connection.IntegratedSecurity = parsed.IntegratedSecurity;
+                _settings.Connection.Encrypt = parsed.Encrypt;
+                _settings.Connection.TrustServerCertificate = parsed.TrustServerCertificate;
             }
         }
     }
