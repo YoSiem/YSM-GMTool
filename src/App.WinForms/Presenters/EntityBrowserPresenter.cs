@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Text.RegularExpressions;
 using App.Core.Interfaces;
 using App.WinForms.Controls;
 using App.WinForms.Models;
@@ -7,6 +8,10 @@ namespace App.WinForms.Presenters;
 
 public sealed class EntityBrowserPresenter<TRecord>
 {
+    private static readonly Regex IdRangeRegex = new(
+        @"^\s*(?<from>\d+)\s*-\s*(?<to>\d+)\s*$",
+        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
     private readonly EntityBrowserControl _view;
     private readonly Func<CancellationToken, Task<IReadOnlyList<TRecord>>> _loadAllAsync;
     private readonly Func<TRecord, int> _idSelector;
@@ -183,8 +188,12 @@ public sealed class EntityBrowserPresenter<TRecord>
 
         try
         {
+            var trimmedQuery = query.Trim();
             var normalizedQuery = _normalizer.NormalizeForSearch(query);
             var token = _filterCts.Token;
+            var rangeFrom = 0;
+            var rangeTo = 0;
+            var hasIdRange = mode == SearchMode.ById && TryParseIdRange(trimmedQuery, out rangeFrom, out rangeTo);
 
             var rows = await Task.Run(() =>
             {
@@ -203,6 +212,7 @@ public sealed class EntityBrowserPresenter<TRecord>
                         .WithCancellation(token)
                         .Where(indexed => mode switch
                         {
+                            SearchMode.ById when hasIdRange => IsInRange(_idSelector(indexed.Item), rangeFrom, rangeTo),
                             SearchMode.ById => indexed.NormalizedId.Contains(normalizedQuery, StringComparison.Ordinal),
                             SearchMode.ByContactScript => indexed.NormalizedSecondarySearchText.Contains(normalizedQuery, StringComparison.Ordinal),
                             _ => indexed.NormalizedSearchText.Contains(normalizedQuery, StringComparison.Ordinal)
@@ -258,5 +268,37 @@ public sealed class EntityBrowserPresenter<TRecord>
         }
 
         return rows.ToList();
+    }
+
+    private static bool TryParseIdRange(string query, out int from, out int to)
+    {
+        from = 0;
+        to = 0;
+
+        if (string.IsNullOrWhiteSpace(query))
+        {
+            return false;
+        }
+
+        var match = IdRangeRegex.Match(query);
+        if (!match.Success)
+        {
+            return false;
+        }
+
+        if (!int.TryParse(match.Groups["from"].Value, NumberStyles.None, CultureInfo.InvariantCulture, out var parsedFrom)
+            || !int.TryParse(match.Groups["to"].Value, NumberStyles.None, CultureInfo.InvariantCulture, out var parsedTo))
+        {
+            return false;
+        }
+
+        from = Math.Min(parsedFrom, parsedTo);
+        to = Math.Max(parsedFrom, parsedTo);
+        return true;
+    }
+
+    private static bool IsInRange(int value, int from, int to)
+    {
+        return value >= from && value <= to;
     }
 }

@@ -5,4 +5,6 @@ public sealed class SkillRecord
     public int SkillId { get; init; }
 
     public string Skillname { get; init; } = string.Empty;
+
+    public string? IconFileName { get; init; }
 }

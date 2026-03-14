@@ -22,6 +22,9 @@ public partial class SettingsForm : Form
     private readonly ILocalCacheService _localCacheService;
     private readonly AppSettings _workingSettings;
     private bool _isLoading;
+    private CheckBox? _chkEnableEntityIcons;
+    private TextBox? _txtEntityIconsPath;
+    private Button? _btnBrowseEntityIconsPath;
 
     public SettingsForm(
         IGameDataRepository repository,
@@ -35,6 +38,7 @@ public partial class SettingsForm : Form
         _workingSettings = currentSettings.Clone();
 
         InitializeComponent();
+        InitializeIconSettingsSection();
         ApplyDialogIcon();
         LoadSettingsIntoControls();
         RefreshCacheStatus();
@@ -92,11 +96,22 @@ public partial class SettingsForm : Form
         txtNpcResource.Text = _workingSettings.TableNames.NpcResource;
         txtSummonResource.Text = _workingSettings.TableNames.SummonResource;
 
+        chkLimitSelectQueries.Checked = _workingSettings.LimitSelectQueries;
+        chkUseLocalCache.Checked = _workingSettings.UseLocalCache;
+        if (_chkEnableEntityIcons is not null)
+        {
+            _chkEnableEntityIcons.Checked = _workingSettings.EnableEntityIcons;
+        }
+
+        if (_txtEntityIconsPath is not null)
+        {
+            _txtEntityIconsPath.Text = _workingSettings.EntityIconsPath ?? string.Empty;
+        }
+
         _isLoading = false;
 
         UpdateAuthUi();
-        chkLimitSelectQueries.Checked = _workingSettings.LimitSelectQueries;
-        chkUseLocalCache.Checked = _workingSettings.UseLocalCache;
+        UpdateIconSettingsUi();
     }
 
     private void RefreshCacheStatus()
@@ -148,6 +163,8 @@ public partial class SettingsForm : Form
 
         _workingSettings.LimitSelectQueries = chkLimitSelectQueries.Checked;
         _workingSettings.UseLocalCache = chkUseLocalCache.Checked;
+        _workingSettings.EnableEntityIcons = _chkEnableEntityIcons?.Checked == true;
+        _workingSettings.EntityIconsPath = _txtEntityIconsPath?.Text.Trim() ?? string.Empty;
 
         _workingSettings.ConnectionString = _connectionStringBuilder.Build(_workingSettings.Provider, _workingSettings.Connection);
     }
@@ -201,6 +218,21 @@ public partial class SettingsForm : Form
         {
             validationMessage = "User ID is required for MySQL.";
             return false;
+        }
+
+        if (_workingSettings.EnableEntityIcons)
+        {
+            if (string.IsNullOrWhiteSpace(_workingSettings.EntityIconsPath))
+            {
+                validationMessage = "Icons folder is required when entity icons are enabled.";
+                return false;
+            }
+
+            if (!Directory.Exists(_workingSettings.EntityIconsPath))
+            {
+                validationMessage = "Selected icons folder does not exist.";
+                return false;
+            }
         }
 
         connectionString = _connectionStringBuilder.Build(_workingSettings.Provider, _workingSettings.Connection);
@@ -361,6 +393,7 @@ public partial class SettingsForm : Form
         }
 
         UpdateAuthUi();
+        UpdateIconSettingsUi();
     }
 
     private void UpdateAuthUi()
@@ -373,5 +406,110 @@ public partial class SettingsForm : Form
         var useSqlAuth = !isMsSql || !chkIntegratedSecurity.Checked;
         txtUserId.Enabled = useSqlAuth;
         txtPassword.Enabled = useSqlAuth;
+    }
+
+    private void InitializeIconSettingsSection()
+    {
+        _chkEnableEntityIcons = new CheckBox
+        {
+            AutoSize = true,
+            Name = "chkEnableEntityIcons",
+            Text = "Enable entity icons (Items, Skills, Buffs, Summons)",
+            Margin = new Padding(3, 3, 3, 3)
+        };
+        _chkEnableEntityIcons.CheckedChanged += ConnectionField_Changed;
+
+        _txtEntityIconsPath = new TextBox
+        {
+            Dock = DockStyle.Fill,
+            Name = "txtEntityIconsPath",
+            PlaceholderText = "Select icons directory..."
+        };
+        _txtEntityIconsPath.TextChanged += ConnectionField_Changed;
+
+        _btnBrowseEntityIconsPath = new Button
+        {
+            AutoSize = true,
+            Name = "btnBrowseEntityIconsPath",
+            Text = "Browse..."
+        };
+        _btnBrowseEntityIconsPath.Click += btnBrowseEntityIconsPath_Click;
+
+        var iconPathRow = new TableLayoutPanel
+        {
+            Name = "tlpEntityIconPath",
+            Dock = DockStyle.Fill,
+            AutoSize = true,
+            ColumnCount = 3,
+            Margin = new Padding(0, 0, 0, 0)
+        };
+        iconPathRow.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+        iconPathRow.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        iconPathRow.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 110F));
+
+        var lblIconsPath = new Label
+        {
+            AutoSize = true,
+            Anchor = AnchorStyles.Left,
+            Text = "Icons folder"
+        };
+
+        iconPathRow.Controls.Add(lblIconsPath, 0, 0);
+        iconPathRow.Controls.Add(_txtEntityIconsPath, 1, 0);
+        iconPathRow.Controls.Add(_btnBrowseEntityIconsPath, 2, 0);
+
+        tlpGeneral.SuspendLayout();
+        tlpGeneral.Controls.Remove(tlpCacheRow);
+        tlpGeneral.RowStyles.Clear();
+        tlpGeneral.RowCount = 6;
+        tlpGeneral.RowStyles.Add(new RowStyle());
+        tlpGeneral.RowStyles.Add(new RowStyle());
+        tlpGeneral.RowStyles.Add(new RowStyle());
+        tlpGeneral.RowStyles.Add(new RowStyle());
+        tlpGeneral.RowStyles.Add(new RowStyle());
+        tlpGeneral.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+        tlpGeneral.Controls.Add(_chkEnableEntityIcons, 0, 2);
+        tlpGeneral.Controls.Add(iconPathRow, 0, 3);
+        tlpGeneral.Controls.Add(tlpCacheRow, 0, 4);
+        tlpGeneral.ResumeLayout();
+    }
+
+    private void UpdateIconSettingsUi()
+    {
+        var enabled = _chkEnableEntityIcons?.Checked == true;
+
+        if (_txtEntityIconsPath is not null)
+        {
+            _txtEntityIconsPath.Enabled = enabled;
+        }
+
+        if (_btnBrowseEntityIconsPath is not null)
+        {
+            _btnBrowseEntityIconsPath.Enabled = enabled;
+        }
+    }
+
+    private void btnBrowseEntityIconsPath_Click(object? sender, EventArgs e)
+    {
+        using var dialog = new FolderBrowserDialog
+        {
+            Description = "Select folder with icon files",
+            ShowNewFolderButton = false
+        };
+
+        if (_txtEntityIconsPath is not null && Directory.Exists(_txtEntityIconsPath.Text))
+        {
+            dialog.SelectedPath = _txtEntityIconsPath.Text;
+        }
+
+        if (dialog.ShowDialog(this) != DialogResult.OK)
+        {
+            return;
+        }
+
+        if (_txtEntityIconsPath is not null)
+        {
+            _txtEntityIconsPath.Text = dialog.SelectedPath;
+        }
     }
 }

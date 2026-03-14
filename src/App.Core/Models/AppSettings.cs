@@ -23,6 +23,10 @@ public sealed class AppSettings
 
     public bool UseLocalCache { get; set; } = false;
 
+    public bool EnableEntityIcons { get; set; } = false;
+
+    public string EntityIconsPath { get; set; } = string.Empty;
+
     public List<WarpLocationSettings> WarpLocations { get; set; } = [];
 
     public AppSettings Clone() => new()
@@ -36,6 +40,8 @@ public sealed class AppSettings
         AppendGeneratedCommands = AppendGeneratedCommands,
         LimitSelectQueries = LimitSelectQueries,
         UseLocalCache = UseLocalCache,
+        EnableEntityIcons = EnableEntityIcons,
+        EntityIconsPath = EntityIconsPath,
         WarpLocations = WarpLocations is null ? [] : [.. WarpLocations.Select(static x => x.Clone())]
     };
 }

@@ -2,14 +2,21 @@ using App.WinForms.Models;
 using System.Reflection;
 using System.Drawing;
 using System.ComponentModel;
+using System.Drawing.Drawing2D;
 
 namespace App.WinForms.Controls;
 
 public partial class EntityBrowserControl : UserControl
 {
+    private static readonly string[] IconExtensions = [".png", ".jpg", ".jpeg", ".bmp", ".gif", ".webp"];
+
     private List<BrowserRow> _rows = [];
     private int _sortColumnIndex = -1;
     private SortOrder _sortOrder = SortOrder.None;
+    private readonly Dictionary<int, int> _imageColumnSizes = [];
+    private readonly Dictionary<string, Image?> _iconCache = new(StringComparer.OrdinalIgnoreCase);
+    private string? _iconsRootPath;
+    private bool _iconsEnabled;
     private CancellationTokenSource? _debounceCts;
     private bool _splitterInitialized;
     private bool _splitterUserAdjusted;
@@ -21,6 +28,7 @@ public partial class EntityBrowserControl : UserControl
         ConfigureGridDefaults();
         ApplyReadabilityPalette();
         InitializeLayoutDefaults();
+        Disposed += EntityBrowserControl_Disposed;
     }
 
     public event EventHandler? LoadAllRequested;
@@ -103,14 +111,57 @@ public partial class EntityBrowserControl : UserControl
         }
     }
 
+    public void ConfigureIconLookup(bool enabled, string? iconsRootPath)
+    {
+        var normalizedPath = string.IsNullOrWhiteSpace(iconsRootPath)
+            ? null
+            : iconsRootPath.Trim();
+
+        var configChanged = _iconsEnabled != enabled
+            || !string.Equals(_iconsRootPath, normalizedPath, StringComparison.OrdinalIgnoreCase);
+
+        _iconsEnabled = enabled;
+        _iconsRootPath = normalizedPath;
+
+        if (!configChanged)
+        {
+            return;
+        }
+
+        ClearIconCache();
+        gridRecords.Invalidate();
+    }
+
     public void ConfigureColumns(IReadOnlyList<BrowserColumnDefinition> columns)
     {
         gridRecords.SuspendLayout();
         gridRecords.Columns.Clear();
+        _imageColumnSizes.Clear();
         gridRecords.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
         foreach (var column in columns)
         {
+            if (column.IsImage)
+            {
+                var imageColumn = new DataGridViewImageColumn
+                {
+                    Name = column.Name,
+                    HeaderText = column.HeaderText,
+                    Width = column.Width,
+                    ReadOnly = true,
+                    SortMode = DataGridViewColumnSortMode.NotSortable,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                    MinimumWidth = column.Width,
+                    ImageLayout = DataGridViewImageCellLayout.Normal
+                };
+                imageColumn.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                imageColumn.DefaultCellStyle.NullValue = null;
+
+                var imageColumnIndex = gridRecords.Columns.Add(imageColumn);
+                _imageColumnSizes[imageColumnIndex] = Math.Max(8, column.ImageSize);
+                continue;
+            }
+
             var fillWeight = column.Fill
                 ? Math.Max(140f, column.Width)
                 : Math.Max(55f, column.Width * 0.75f);
@@ -132,6 +183,11 @@ public partial class EntityBrowserControl : UserControl
 
             gridRecords.Columns.Add(dataGridColumn);
         }
+
+        var maxImageSize = _imageColumnSizes.Count == 0 ? 0 : _imageColumnSizes.Values.Max();
+        gridRecords.RowTemplate.Height = maxImageSize > 0
+            ? Math.Max(26, maxImageSize + 8)
+            : 28;
 
         gridRecords.ResumeLayout();
     }
@@ -173,6 +229,7 @@ public partial class EntityBrowserControl : UserControl
         gridRecords.RowHeadersVisible = false;
         gridRecords.AllowUserToResizeRows = false;
         gridRecords.RowTemplate.Resizable = DataGridViewTriState.False;
+        gridRecords.RowTemplate.Height = 28;
         gridRecords.AutoGenerateColumns = false;
         gridRecords.EnableHeadersVisualStyles = false;
         gridRecords.ColumnHeadersDefaultCellStyle.SelectionBackColor = gridRecords.ColumnHeadersDefaultCellStyle.BackColor;
@@ -330,6 +387,13 @@ public partial class EntityBrowserControl : UserControl
             return;
         }
 
+        if (_imageColumnSizes.TryGetValue(e.ColumnIndex, out var iconSize))
+        {
+            var iconKey = row.Values[e.ColumnIndex]?.ToString();
+            e.Value = ResolveIcon(iconKey, iconSize);
+            return;
+        }
+
         e.Value = row.Values[e.ColumnIndex];
     }
 
@@ -350,6 +414,11 @@ public partial class EntityBrowserControl : UserControl
     {
         if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
         {
+            if (_imageColumnSizes.ContainsKey(e.ColumnIndex))
+            {
+                return;
+            }
+
             var value = gridRecords.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
             if (value != null && !string.IsNullOrWhiteSpace(value.ToString()))
             {
@@ -366,6 +435,11 @@ public partial class EntityBrowserControl : UserControl
         }
 
         var columnIndex = e.ColumnIndex;
+        if (_imageColumnSizes.ContainsKey(columnIndex))
+        {
+            return;
+        }
+
         if (_sortColumnIndex == columnIndex)
         {
             _sortOrder = _sortOrder == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
@@ -402,5 +476,124 @@ public partial class EntityBrowserControl : UserControl
         gridRecords.Invalidate();
 
         SelectedRowChanged?.Invoke(this, null);
+    }
+
+    private void EntityBrowserControl_Disposed(object? sender, EventArgs e)
+    {
+        _debounceCts?.Cancel();
+        _debounceCts?.Dispose();
+        _debounceCts = null;
+
+        ClearIconCache();
+    }
+
+    private void ClearIconCache()
+    {
+        foreach (var image in _iconCache.Values)
+        {
+            image?.Dispose();
+        }
+
+        _iconCache.Clear();
+    }
+
+    private Image? ResolveIcon(string? iconKey, int iconSize)
+    {
+        if (!_iconsEnabled
+            || string.IsNullOrWhiteSpace(_iconsRootPath)
+            || string.IsNullOrWhiteSpace(iconKey))
+        {
+            return null;
+        }
+
+        var normalizedKey = iconKey.Trim();
+        var cacheKey = $"{iconSize}:{normalizedKey}";
+        if (_iconCache.TryGetValue(cacheKey, out var cached))
+        {
+            return cached;
+        }
+
+        var path = ResolveIconFilePath(normalizedKey);
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            _iconCache[cacheKey] = null;
+            return null;
+        }
+
+        try
+        {
+            using var source = Image.FromFile(path);
+            var resized = ResizeWithLetterboxing(source, iconSize);
+            _iconCache[cacheKey] = resized;
+            return resized;
+        }
+        catch
+        {
+            _iconCache[cacheKey] = null;
+            return null;
+        }
+    }
+
+    private string? ResolveIconFilePath(string iconKey)
+    {
+        if (string.IsNullOrWhiteSpace(_iconsRootPath) || !Directory.Exists(_iconsRootPath))
+        {
+            return null;
+        }
+
+        if (Path.IsPathRooted(iconKey))
+        {
+            return File.Exists(iconKey) ? iconKey : null;
+        }
+
+        if (Path.HasExtension(iconKey))
+        {
+            var direct = Path.Combine(_iconsRootPath, iconKey);
+            return File.Exists(direct) ? direct : null;
+        }
+
+        foreach (var extension in IconExtensions)
+        {
+            var candidate = Path.Combine(_iconsRootPath, iconKey + extension);
+            if (File.Exists(candidate))
+            {
+                return candidate;
+            }
+        }
+
+        return null;
+    }
+
+    private static Image ResizeWithLetterboxing(Image source, int iconSize)
+    {
+        var bitmap = new Bitmap(iconSize, iconSize);
+
+        using var graphics = Graphics.FromImage(bitmap);
+        graphics.Clear(Color.Transparent);
+        graphics.CompositingQuality = CompositingQuality.HighQuality;
+        graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+        graphics.SmoothingMode = SmoothingMode.HighQuality;
+        graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+        var fitRect = GetFitRectangle(source.Width, source.Height, iconSize, iconSize);
+        graphics.DrawImage(source, fitRect);
+        return bitmap;
+    }
+
+    private static Rectangle GetFitRectangle(int sourceWidth, int sourceHeight, int targetWidth, int targetHeight)
+    {
+        if (sourceWidth <= 0 || sourceHeight <= 0)
+        {
+            return new Rectangle(0, 0, targetWidth, targetHeight);
+        }
+
+        // Keep icons crisp: never upscale above native resolution.
+        var scale = Math.Min(1d, Math.Min((double)targetWidth / sourceWidth, (double)targetHeight / sourceHeight));
+        var width = Math.Max(1, (int)Math.Round(sourceWidth * scale));
+        var height = Math.Max(1, (int)Math.Round(sourceHeight * scale));
+        var x = (targetWidth - width) / 2;
+        var y = (targetHeight - height) / 2;
+
+        return new Rectangle(x, y, width, height);
     }
 }

@@ -7,4 +7,6 @@ public sealed class SummonRecord
     public string SummonName { get; init; } = string.Empty;
 
     public string? CardName { get; init; }
+
+    public string? IconFileName { get; init; }
 }

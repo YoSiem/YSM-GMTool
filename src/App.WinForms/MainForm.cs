@@ -390,6 +390,18 @@ public partial class MainForm : Form
 
     private void ConfigureBrowserColumns()
     {
+        var iconsEnabled = AreEntityIconsEnabled();
+        var iconsPath = iconsEnabled ? _settings.EntityIconsPath.Trim() : null;
+
+        browserPlayerchecker.ConfigureIconLookup(false, null);
+        browserMonster.ConfigureIconLookup(false, null);
+        browserNpcs.ConfigureIconLookup(false, null);
+        browserWarp.ConfigureIconLookup(false, null);
+        browserItems.ConfigureIconLookup(iconsEnabled, iconsPath);
+        browserSkills.ConfigureIconLookup(iconsEnabled, iconsPath);
+        browserBuffs.ConfigureIconLookup(iconsEnabled, iconsPath);
+        browserSummons.ConfigureIconLookup(iconsEnabled, iconsPath);
+
         browserPlayerchecker.ConfigureColumns(
         [
             new BrowserColumnDefinition("playerId", "ID", 80),
@@ -413,23 +425,38 @@ public partial class MainForm : Form
             new BrowserColumnDefinition("location", "Location", 300, true)
         ]);
 
-        browserItems.ConfigureColumns(
-        [
-            new BrowserColumnDefinition("itemId", "ID", 80),
-            new BrowserColumnDefinition("name", "Name", 460, true)
-        ]);
+        var itemsColumns = new List<BrowserColumnDefinition>
+        {
+            new("itemId", "ID", 80),
+            new("name", "Name", 460, true)
+        };
+        if (iconsEnabled)
+        {
+            itemsColumns.Insert(0, new BrowserColumnDefinition("itemIcon", "Icon", 44, IsImage: true, ImageSize: 36));
+        }
+        browserItems.ConfigureColumns(itemsColumns);
 
-        browserSkills.ConfigureColumns(
-        [
-            new BrowserColumnDefinition("skillId", "ID", 80),
-            new BrowserColumnDefinition("skillName", "Name", 460, true)
-        ]);
+        var skillsColumns = new List<BrowserColumnDefinition>
+        {
+            new("skillId", "ID", 80),
+            new("skillName", "Name", 460, true)
+        };
+        if (iconsEnabled)
+        {
+            skillsColumns.Insert(0, new BrowserColumnDefinition("skillIcon", "Icon", 44, IsImage: true, ImageSize: 36));
+        }
+        browserSkills.ConfigureColumns(skillsColumns);
 
-        browserBuffs.ConfigureColumns(
-        [
-            new BrowserColumnDefinition("stateId", "State ID", 100),
-            new BrowserColumnDefinition("buffName", "Buff name", 460, true)
-        ]);
+        var buffsColumns = new List<BrowserColumnDefinition>
+        {
+            new("stateId", "State ID", 100),
+            new("buffName", "Buff name", 460, true)
+        };
+        if (iconsEnabled)
+        {
+            buffsColumns.Insert(0, new BrowserColumnDefinition("buffIcon", "Icon", 24, IsImage: true, ImageSize: 16));
+        }
+        browserBuffs.ConfigureColumns(buffsColumns);
 
         browserNpcs.ConfigureColumns(
         [
@@ -441,12 +468,17 @@ public partial class MainForm : Form
         ]);
         browserNpcs.ConfigureSecondarySearch(true, "for Contact script");
 
-        browserSummons.ConfigureColumns(
-        [
-            new BrowserColumnDefinition("summonId", "Summon ID", 100),
-            new BrowserColumnDefinition("summonName", "Summon Name", 320, true),
-            new BrowserColumnDefinition("cardName", "Card Name", 320, true)
-        ]);
+        var summonsColumns = new List<BrowserColumnDefinition>
+        {
+            new("summonId", "Summon ID", 100),
+            new("summonName", "Summon Name", 320, true),
+            new("cardName", "Card Name", 320, true)
+        };
+        if (iconsEnabled)
+        {
+            summonsColumns.Insert(0, new BrowserColumnDefinition("summonIcon", "Icon", 44, IsImage: true, ImageSize: 36));
+        }
+        browserSummons.ConfigureColumns(summonsColumns);
 
         browserWarp.ConfigureColumns(
         [
@@ -457,6 +489,13 @@ public partial class MainForm : Form
         browserWarp.ConfigureSearchLabels(string.Empty, "by Name");
         browserWarp.ConfigureIdSearch(false);
         browserWarp.SetStatus("Ready.");
+    }
+
+    private bool AreEntityIconsEnabled()
+    {
+        return _settings.EnableEntityIcons
+            && !string.IsNullOrWhiteSpace(_settings.EntityIconsPath)
+            && Directory.Exists(_settings.EntityIconsPath);
     }
 
     private void InitializePresenters()
@@ -513,11 +552,9 @@ public partial class MainForm : Form
                 : _repository.GetItemsAsync(_settings.Provider, GetConfiguredConnectionString(), GetQueryTokens(), ct),
             x => x.ItemId,
             x => x.NameEn,
-            x =>
-            [
-                x.ItemId,
-                x.NameEn
-            ],
+            x => AreEntityIconsEnabled()
+                ? [x.IconFileName ?? string.Empty, x.ItemId, x.NameEn]
+                : [x.ItemId, x.NameEn],
             _nameNormalizer, maxRowsSelector: () => _settings.LimitSelectQueries ? 1000 : null);
 
         _skillsPresenter = new EntityBrowserPresenter<SkillRecord>(
@@ -527,11 +564,9 @@ public partial class MainForm : Form
                 : _repository.GetSkillsAsync(_settings.Provider, GetConfiguredConnectionString(), GetQueryTokens(), ct),
             x => x.SkillId,
             x => x.Skillname,
-            x =>
-            [
-                x.SkillId,
-                x.Skillname
-            ],
+            x => AreEntityIconsEnabled()
+                ? [x.IconFileName ?? string.Empty, x.SkillId, x.Skillname]
+                : [x.SkillId, x.Skillname],
             _nameNormalizer, maxRowsSelector: () => _settings.LimitSelectQueries ? 1000 : null);
 
         _buffsPresenter = new EntityBrowserPresenter<StateRecord>(
@@ -541,11 +576,9 @@ public partial class MainForm : Form
                 : _repository.GetStatesAsync(_settings.Provider, GetConfiguredConnectionString(), GetQueryTokens(), ct),
             x => x.StateId,
             x => x.BuffName,
-            x =>
-            [
-                x.StateId,
-                x.BuffName
-            ],
+            x => AreEntityIconsEnabled()
+                ? [x.IconFileName ?? string.Empty, x.StateId, x.BuffName]
+                : [x.StateId, x.BuffName],
             _nameNormalizer, maxRowsSelector: () => _settings.LimitSelectQueries ? 1000 : null);
 
         _npcsPresenter = new EntityBrowserPresenter<NpcRecord>(
@@ -578,12 +611,9 @@ public partial class MainForm : Form
                 : _repository.GetSummonsAsync(_settings.Provider, GetConfiguredConnectionString(), GetQueryTokens(), ct),
             x => x.SummonId,
             x => x.SummonName,
-            x =>
-            [
-                x.SummonId,
-                x.SummonName,
-                x.CardName ?? string.Empty
-            ],
+            x => AreEntityIconsEnabled()
+                ? [x.IconFileName ?? string.Empty, x.SummonId, x.SummonName, x.CardName ?? string.Empty]
+                : [x.SummonId, x.SummonName, x.CardName ?? string.Empty],
             _nameNormalizer,
             x =>
             [
@@ -774,6 +804,7 @@ public partial class MainForm : Form
         _settings.TableNames ??= new();
         _settings.Players ??= [];
         _settings.WarpLocations ??= [];
+        _settings.EntityIconsPath ??= string.Empty;
         if (_settings.WarpLocations.Count == 0)
         {
             _settings.WarpLocations = GetDefaultWarpLocations();
@@ -782,6 +813,7 @@ public partial class MainForm : Form
 
     private void ApplySettingsToUi()
     {
+        ConfigureBrowserColumns();
         chkAppendCommands.Checked = _settings.AppendGeneratedCommands;
 
         cmbPlayers.BeginUpdate();
@@ -1964,6 +1996,8 @@ public partial class MainForm : Form
         }
 
         _settings = settingsForm.UpdatedSettings.Clone();
+        EnsureSettingsDefaults();
+        ConfigureBrowserColumns();
 
         await SaveSettingsSafeAsync();
     }

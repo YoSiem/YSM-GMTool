@@ -5,4 +5,6 @@ public sealed class ItemRecord
     public int ItemId { get; init; }
 
     public string NameEn { get; init; } = string.Empty;
+
+    public string? IconFileName { get; init; }
 }
