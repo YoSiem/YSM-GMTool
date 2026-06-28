@@ -13,4 +13,10 @@ public sealed class AvaloniaClipboardService : IClipboardService
             await cb.SetTextAsync(text);
         }
     }
+
+    public async Task<string?> GetTextAsync()
+    {
+        var top = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+        return top?.Clipboard is { } cb ? await cb.GetTextAsync() : null;
+    }
 }
