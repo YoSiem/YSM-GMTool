@@ -63,29 +63,16 @@
                         </StackPanel>
                     </WrapPanel>
 
-                    <StackPanel Classes="field" Width="160">
-                        <TextBlock Classes="fieldLabel" Text="Value" />
-                        <NumericUpDown Minimum="-1000000000" Maximum="1000000000"
-                                       Increment="1" FormatString="0.######"
-                                       Value="{Binding StatValue}" />
-                    </StackPanel>
-
                     <Button Content="Import options" Command="{Binding ImportOptions}" HorizontalAlignment="Left" />
                 </StackPanel>
 
-                <!-- Socket-only -->
+                <!-- Socket-only: drives Options -->
                 <WrapPanel IsVisible="{Binding IsSocketMode}">
                     <StackPanel Classes="field" Width="120">
                         <TextBlock Classes="fieldLabel" Text="Socket Type" />
                         <ComboBox HorizontalAlignment="Stretch"
                                   ItemsSource="{Binding SocketTypes}"
                                   SelectedItem="{Binding SocketType}" />
-                    </StackPanel>
-                    <StackPanel Classes="field" Width="120">
-                        <TextBlock Classes="fieldLabel" Text="Amount" />
-                        <ComboBox HorizontalAlignment="Stretch"
-                                  ItemsSource="{Binding SocketAmounts}"
-                                  SelectedItem="{Binding SocketAmount}" />
                     </StackPanel>
                 </WrapPanel>
 
@@ -97,15 +84,9 @@
                                    Foreground="{DynamicResource MutedForeground}"
                                    Text="{Binding EffectText}" />
                     </StackPanel>
-                    <StackPanel Classes="field" Width="160">
-                        <TextBlock Classes="fieldLabel" Text="Value" />
-                        <NumericUpDown Minimum="-1000000000" Maximum="1000000000"
-                                       Increment="1" FormatString="0.######"
-                                       Value="{Binding ItemValue}" />
-                    </StackPanel>
                 </StackPanel>
 
-                <!-- Derived row -->
+                <!-- Type / Options / Value row -->
                 <WrapPanel>
                     <StackPanel Classes="field" Width="90">
                         <TextBlock Classes="fieldLabel" Text="Type" />
@@ -114,6 +95,24 @@
                     <StackPanel Classes="field" Width="180">
                         <TextBlock Classes="fieldLabel" Text="Options" />
                         <TextBox IsReadOnly="True" Text="{Binding OptionsDisplay}" />
+                    </StackPanel>
+                    <StackPanel Classes="field" Width="160" IsVisible="{Binding IsStatMode}">
+                        <TextBlock Classes="fieldLabel" Text="Value" />
+                        <NumericUpDown Minimum="-1000000000" Maximum="1000000000"
+                                       Increment="1" FormatString="0.######"
+                                       Value="{Binding StatValue}" />
+                    </StackPanel>
+                    <StackPanel Classes="field" Width="160" IsVisible="{Binding IsItemMode}">
+                        <TextBlock Classes="fieldLabel" Text="Value" />
+                        <NumericUpDown Minimum="-1000000000" Maximum="1000000000"
+                                       Increment="1" FormatString="0.######"
+                                       Value="{Binding ItemValue}" />
+                    </StackPanel>
+                    <StackPanel Classes="field" Width="120" IsVisible="{Binding IsSocketMode}">
+                        <TextBlock Classes="fieldLabel" Text="Amount" />
+                        <ComboBox HorizontalAlignment="Stretch"
+                                  ItemsSource="{Binding SocketAmounts}"
+                                  SelectedItem="{Binding SocketAmount}" />
                     </StackPanel>
                 </WrapPanel>
 
