@@ -37,6 +37,17 @@ public static class LuaCommands
     public static string ChangeWearItemCodePlayer(int wearSlot, string playerName, int itemCode)
         => Invariant($"change_item_code(get_wear_item_handle({wearSlot},'{LuaEscape.Single(playerName)}'),{itemCode})");
 
+    // Random options (set_item_random_option). options is a long to hold the 32-bit stat
+    // bitmask (bit 31 = FLAG_FINAL_DMG_REDUCTION) without int overflow.
+    public static string SetItemRandomOptionOwn(int wearSlot, int line, int type, long options, double value)
+        => Invariant($"set_item_random_option(get_wear_item_handle({wearSlot}),{line},{type},{options},{FormatValue(value)})");
+    public static string SetItemRandomOptionPlayer(int wearSlot, string playerName, int line, int type, long options, double value)
+        => Invariant($"set_item_random_option(get_wear_item_handle({wearSlot},'{LuaEscape.Single(playerName)}'),{line},{type},{options},{FormatValue(value)})");
+
+    // Value (fValue2) is a double; emit whole numbers without a decimal point and trim trailing zeros.
+    private static string FormatValue(double value)
+        => value.ToString("0.######", System.Globalization.CultureInfo.InvariantCulture);
+
     // Skills
     public static string LearnSkill(int skillId) => Invariant($"learn_skill({skillId})");
     public static string LearnSkillForPlayer(int skillId, string playerName)
