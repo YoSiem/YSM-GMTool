@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Input.Platform;
 
 namespace App.Desktop.Infrastructure;
 
@@ -17,6 +18,6 @@ public sealed class AvaloniaClipboardService : IClipboardService
     public async Task<string?> GetTextAsync()
     {
         var top = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow;
-        return top?.Clipboard is { } cb ? await cb.GetTextAsync() : null;
+        return top?.Clipboard is { } cb ? await cb.TryGetTextAsync() : null;
     }
 }
