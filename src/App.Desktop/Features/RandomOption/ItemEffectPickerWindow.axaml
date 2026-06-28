@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ro="clr-namespace:App.Desktop.Features.RandomOption"
+        x:Class="App.Desktop.Features.RandomOption.ItemEffectPickerWindow"
+        x:DataType="ro:ItemEffectPickerViewModel"
+        x:CompileBindings="False"
+        Title="Select Item Effect"
+        Width="560" Height="520"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource WindowBackground}">
+    <Grid RowDefinitions="Auto,*,Auto" Margin="10">
+        <TextBox Grid.Row="0"
+                 Watermark="Search by id or text..."
+                 Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <DataGrid x:Name="EffectsGrid"
+                  Grid.Row="1"
+                  Margin="0,8"
+                  IsReadOnly="True"
+                  SelectionMode="Single"
+                  CanUserSortColumns="True"
+                  CanUserReorderColumns="False"
+                  CanUserResizeColumns="True"
+                  AutoGenerateColumns="False"
+                  HeadersVisibility="Column"
+                  FontSize="12"
+                  ItemsSource="{Binding Rows}"
+                  SelectedItem="{Binding Selected, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Effect_id" Binding="{Binding EffectId}" Width="110" />
+                <DataGridTextColumn Header="Effecttext" Binding="{Binding EffectText}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+            <Button Content="Cancel" Click="OnCancelClick" />
+            <Button Classes="primary" Content="Select" Click="OnSelectClick" />
+        </StackPanel>
+    </Grid>
+</Window>
