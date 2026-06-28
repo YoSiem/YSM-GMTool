@@ -4,4 +4,7 @@ namespace App.Desktop.Services;
 public interface ICommandDispatcher
 {
     Task DispatchAsync(string luaCommand);
+
+    /// <summary>The exact text <see cref="DispatchAsync"/> would copy (with the optional /run prefix).</summary>
+    string Format(string luaCommand);
 }
