@@ -219,7 +219,7 @@ parsing is needed.
 
   MSSQL:
   ```sql
-  SELECT i.[id] AS EffectId, n.[value_en] AS EffectText
+  SELECT i.[id] AS EffectId, n.[value] AS EffectText
   FROM [{{ArcadiaName}}].dbo.ItemEffectResource i
   LEFT JOIN [{{ArcadiaName}}].dbo.{{StringResource}} n ON i.[tooltip_id] = n.[code]
   ORDER BY i.[id];
@@ -227,9 +227,10 @@ parsing is needed.
   MySQL (backtick-quoted, same shape).
 
   Per the user's decision: `ItemEffectResource` is **hardcoded** (always the same table);
-  `StringResourceFull` maps to the existing **`{{StringResource}}`** token. ⚠️ **Assumption to
-  confirm (§13):** column kept as `value_en` (the user's original query) even though every
-  other query selects `value`.
+  `StringResourceFull` maps to the existing **`{{StringResource}}`** token. ✅ **Resolved (§13):**
+  the text column is `value` (verified against the live `Arcadia_Season.dbo.StringResource` — it has
+  `name/group_id/code/value`, no `value_en`). The initial `value_en` guess raised
+  "Invalid column name 'value_en'" and was corrected to `value`.
 
 ### Window + VM + service
 - `ItemEffectPickerWindow.axaml` (+ `.cs`) — modal `Window`, reuses `EntityBrowserView`
@@ -290,8 +291,8 @@ exercised through their interfaces.
 - **Picker tables:** `ItemEffectResource` hardcoded; `StringResourceFull` → `{{StringResource}}`
   token. ✅
 - **Socket mode:** Socket Type {1,2} → Options, Amount {1,2} → Value. ✅
-- **⚠️ Open:** picker text column `value_en` vs `value`. Kept as `value_en` per the original
-  query; flag for confirmation (all other queries use `value`).
+- **Picker text column:** `value` (✅ verified against live `Arcadia_Season.dbo.StringResource`).
+  The initial `value_en` guess was wrong ("Invalid column name 'value_en'") and was corrected.
 - Penetration flags (Part 2 bits 12/13) included by default.
 - Order = 35, icon `fa-solid fa-dice`.
 
