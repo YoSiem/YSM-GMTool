@@ -38,8 +38,14 @@ public sealed class ItemEffectPickerViewModel : ReactiveObject
     public ItemEffectRecord? Selected
     {
         get => _selected;
-        set => this.RaiseAndSetIfChanged(ref _selected, value);
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _selected, value);
+            this.RaisePropertyChanged(nameof(HasSelection));
+        }
     }
+
+    public bool HasSelection => _selected is not null;
 
     private void ApplyFilter()
     {

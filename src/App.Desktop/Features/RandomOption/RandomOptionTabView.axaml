@@ -123,7 +123,7 @@
                          FontFamily="Consolas, monospace" MinHeight="46"
                          Text="{Binding Command}" />
                 <TextBlock Foreground="{DynamicResource MutedForeground}" FontSize="11"
-                           Text="set_item_random_option(get_wear_item_handle(SLOT[,'player']),LINE,TYPE,OPTIONS,VALUE)" />
+                           Text="set_item_random_option(get_wear_item_handle(SLOT[,'PLAYER']),LINE,TYPE,OPTIONS,VALUE)" />
 
                 <Button Classes="primary" Content="Copy Command to Clipboard"
                         Command="{Binding CopyCommand}" HorizontalAlignment="Left" Margin="0,4,0,0" />

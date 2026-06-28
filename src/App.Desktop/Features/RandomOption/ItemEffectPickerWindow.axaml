@@ -34,7 +34,7 @@
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
             <Button Content="Cancel" Click="OnCancelClick" />
-            <Button Classes="primary" Content="Select" Click="OnSelectClick" />
+            <Button Classes="primary" Content="Select" Click="OnSelectClick" IsEnabled="{Binding HasSelection}" />
         </StackPanel>
     </Grid>
 </Window>

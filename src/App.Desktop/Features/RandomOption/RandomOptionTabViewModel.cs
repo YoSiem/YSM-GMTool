@@ -320,7 +320,8 @@ public sealed class RandomOptionTabViewModel : TabModuleViewModel
         var text = await _clipboard.GetTextAsync();
         if (string.IsNullOrWhiteSpace(text)
             || !long.TryParse(text.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var mask)
-            || mask < 0)
+            || mask < 0
+            || mask > uint.MaxValue)
         {
             await _dlg.ShowWarningAsync(Title_, "Clipboard does not contain a valid options number.");
             return;
