@@ -81,5 +81,11 @@ public interface IGameDataRepository
         IReadOnlyDictionary<string, string>? queryTokens = null,
         CancellationToken cancellationToken = default);
 
+    Task<IReadOnlyList<ItemEffectRecord>> GetItemEffectsAsync(
+        DatabaseProvider provider,
+        string connectionString,
+        IReadOnlyDictionary<string, string>? queryTokens = null,
+        CancellationToken cancellationToken = default);
+
     Task TestConnectionAsync(DatabaseProvider provider, string connectionString, CancellationToken cancellationToken = default);
 }
