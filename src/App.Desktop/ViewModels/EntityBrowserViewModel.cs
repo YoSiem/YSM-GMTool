@@ -27,8 +27,8 @@ public interface IEntityBrowser
 
 /// <summary>
 /// Generic, reusable browser view model: load-all / search / sort / row-limit over a list of records.
-/// Ported from the WinForms <c>EntityBrowserPresenter</c> (in-memory PLINQ filter, optional SQL search
-/// path, ID-range search, exact status strings, provider-agnostic cancellation guard).
+/// In-memory PLINQ filter, optional SQL search path, ID-range search, exact status strings,
+/// provider-agnostic cancellation guard.
 /// </summary>
 public sealed class EntityBrowserViewModel<TRecord> : ReactiveObject, IEntityBrowser
 {

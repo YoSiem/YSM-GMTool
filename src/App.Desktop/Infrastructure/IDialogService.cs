@@ -1,6 +1,6 @@
 namespace App.Desktop.Infrastructure;
 
-/// <summary>Centralizes the modal message boxes that the WinForms app did via <c>MessageBox.Show</c>.</summary>
+/// <summary>Centralizes the app's modal message boxes.</summary>
 public interface IDialogService
 {
     Task ShowInfoAsync(string title, string message);

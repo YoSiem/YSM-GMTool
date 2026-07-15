@@ -93,8 +93,6 @@ public sealed class NpcTabViewModel : TabModuleViewModel
             .Subscribe(r =>
             {
                 NpcId = r!.NpcId;
-                NpcName = r.NpcTitle;
-                ContactScript = r.ContactScript ?? string.Empty;
                 NpcX = (int)Math.Round(r.X ?? 0);
                 NpcY = (int)Math.Round(r.Y ?? 0);
             });
@@ -145,22 +143,6 @@ public sealed class NpcTabViewModel : TabModuleViewModel
     {
         get => _npcId;
         set => this.RaiseAndSetIfChanged(ref _npcId, value);
-    }
-
-    private string _npcName = string.Empty;
-
-    public string NpcName
-    {
-        get => _npcName;
-        set => this.RaiseAndSetIfChanged(ref _npcName, value);
-    }
-
-    private string _contactScript = string.Empty;
-
-    public string ContactScript
-    {
-        get => _contactScript;
-        set => this.RaiseAndSetIfChanged(ref _contactScript, value);
     }
 
     private int _npcX;

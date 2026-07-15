@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ch="clr-namespace:App.Desktop.Features.Character"
+             x:Class="App.Desktop.Features.Character.CharacterTabView"
+             x:DataType="ch:CharacterTabViewModel"
+             x:CompileBindings="False"
+             Background="{DynamicResource WindowBackground}">
+    <ScrollViewer>
+        <StackPanel Margin="12" Spacing="8" MinWidth="430" MaxWidth="560" HorizontalAlignment="Left">
+
+            <TextBlock Classes="sectionHeader" Text="Set / Add Value" />
+            <Border Classes="sectionDivider" />
+
+            <!-- Target -->
+            <StackPanel Spacing="2">
+                <TextBlock Classes="fieldLabel" Text="Target" />
+                <StackPanel Orientation="Horizontal" Spacing="14">
+                    <RadioButton GroupName="chTarget" Content="Own" IsChecked="{Binding !ApplyToOther}" />
+                    <RadioButton GroupName="chTarget" Content="Other" IsChecked="{Binding ApplyToOther}" />
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Operation -->
+            <StackPanel Spacing="2">
+                <TextBlock Classes="fieldLabel" Text="Operation" />
+                <StackPanel Orientation="Horizontal" Spacing="14">
+                    <RadioButton GroupName="chOp" Content="Set (sv)" IsChecked="{Binding IsSet}" />
+                    <RadioButton GroupName="chOp" Content="Add (av)" IsChecked="{Binding IsAdd}" />
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Attribute + value -->
+            <WrapPanel>
+                <StackPanel Classes="field" Width="240">
+                    <TextBlock Classes="fieldLabel" Text="Attribute" />
+                    <ComboBox HorizontalAlignment="Stretch"
+                              IsEnabled="{Binding !UseCustomKey}"
+                              ItemsSource="{Binding Attributes}"
+                              SelectedItem="{Binding SelectedAttribute}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Label}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Classes="field" Width="170">
+                    <TextBlock Classes="fieldLabel" Text="{Binding ValueLabel}" />
+                    <NumericUpDown Minimum="-9223372036854775808" Maximum="9223372036854775807"
+                                   Increment="1" FormatString="0"
+                                   Value="{Binding Value}" />
+                </StackPanel>
+            </WrapPanel>
+
+            <!-- Custom key -->
+            <CheckBox Content="Custom key" IsChecked="{Binding UseCustomKey}" />
+            <TextBox IsVisible="{Binding UseCustomKey}" Text="{Binding CustomKey}"
+                     Watermark="e.g. jlv, immoral, pk_count" MaxWidth="240" HorizontalAlignment="Left" />
+
+            <!-- Quick actions -->
+            <TextBlock Classes="sectionHeader" Text="Quick actions" Margin="0,8,0,0" />
+            <Border Classes="sectionDivider" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Button Content="Set Level" Command="{Binding SetLevelPreset}" />
+                <Button Content="+ EXP" Command="{Binding AddExpPreset}" />
+                <Button Content="+ JP" Command="{Binding AddJpPreset}" />
+                <Button Content="+ Gold" Command="{Binding AddGoldPreset}" />
+            </StackPanel>
+
+            <!-- Command -->
+            <TextBlock Classes="sectionHeader" Text="Command" Margin="0,8,0,0" />
+            <Border Classes="sectionDivider" />
+            <TextBox IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap"
+                     FontFamily="Consolas, monospace" MinHeight="40"
+                     Text="{Binding Command}" />
+            <TextBlock Foreground="{DynamicResource MutedForeground}" FontSize="11"
+                       Text="sv/av('key',value[,'player']) — setting Level sets EXP to that level's threshold." />
+
+            <Button Classes="primary" Content="Copy Command to Clipboard"
+                    Command="{Binding CopyCommand}" HorizontalAlignment="Left" Margin="0,4,0,0" />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -9,10 +9,9 @@ using Serilog;
 namespace App.Desktop.Infrastructure;
 
 /// <summary>
-/// Resolves entity icon keys to letterboxed square <see cref="Bitmap"/>s from a configured root folder.
-/// Ported from the WinForms <c>EntityBrowserControl</c> icon logic: rooted/extension/extension-probe path
-/// resolution, no-upscale centered letterboxing, and a negative cache (failed lookups cached as null).
-/// Cache key is <c>"{size}:{trimmedKey}"</c>.
+/// Resolves entity icon keys to letterboxed square <see cref="Bitmap"/>s from a configured root folder:
+/// rooted/extension/extension-probe path resolution, no-upscale centered letterboxing, and a negative
+/// cache (failed lookups cached as null). Cache key is <c>"{size}:{trimmedKey}"</c>.
 /// </summary>
 public static class IconCache
 {
@@ -22,8 +21,6 @@ public static class IconCache
 
     private static bool _enabled;
     private static string? _rootPath;
-
-    public static bool Enabled => _enabled;
 
     /// <summary>Enable/disable icon resolution and set the root folder. Clears the cache when config changes.</summary>
     public static void Configure(bool enabled, string? rootPath)

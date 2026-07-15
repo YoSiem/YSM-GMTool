@@ -5,8 +5,7 @@ using App.Core.Enums;
 namespace App.Desktop.Services;
 
 /// <summary>
-/// Resolves the effective connection string + query tokens from the live settings.
-/// Ports the WinForms <c>GetConfiguredConnectionString</c>/<c>GetQueryTokens</c> precedence into a
+/// Resolves the effective connection string + query tokens from the live settings into a
 /// shared injectable used by every data-backed tab.
 /// </summary>
 public sealed class ConnectionStringResolver(IConnectionStringBuilderService builder, IAppSettingsHolder settings)

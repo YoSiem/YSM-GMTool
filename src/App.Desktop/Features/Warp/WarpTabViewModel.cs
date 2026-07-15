@@ -19,7 +19,7 @@ namespace App.Desktop.Features.Warp;
 
 /// <summary>
 /// Warp tab: a settings-backed (not DB/cache) location list with warp commands and add/remove
-/// management. Ported from the WinForms <c>WarpActionsControl</c> + <c>MainForm</c> warp handlers.
+/// management.
 /// </summary>
 public sealed class WarpTabViewModel : TabModuleViewModel
 {
@@ -65,7 +65,7 @@ public sealed class WarpTabViewModel : TabModuleViewModel
         _player = player;
         _dlg = dlg;
 
-        // Seed the 31 defaults when no warp locations are stored yet (parity with WinForms init).
+        // Seed the 31 defaults when no warp locations are stored yet.
         if (_settings.Current.WarpLocations is null || _settings.Current.WarpLocations.Count == 0)
         {
             _settings.Current.WarpLocations = WarpDefaults.Create();
@@ -100,7 +100,7 @@ public sealed class WarpTabViewModel : TabModuleViewModel
         Add = ReactiveCommand.CreateFromTask(AddAsync);
         RemoveSelected = ReactiveCommand.CreateFromTask(RemoveSelectedAsync);
 
-        // Populate the list immediately (mirrors the WinForms RefreshWarpRows on init).
+        // Populate the list immediately on init.
         Browser.LoadAll.Execute().Subscribe();
     }
 

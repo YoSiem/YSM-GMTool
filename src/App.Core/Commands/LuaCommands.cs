@@ -110,4 +110,30 @@ public static class LuaCommands
         => Invariant($"insert_summon_by_summon_id({summonId},{stage})");
     public static string StageSummon(int slot, int stage)
         => Invariant($"creature_enhance({slot},{stage})");
+
+    // Player value editing (sv = set_value, av = add_value). Value emitted as an integer
+    // literal; exp/gold/jp are __int64 server-side (StructPlayer), so it is carried as a long.
+    // Setting 'level' makes the server set EXP to the threshold for that level
+    // (StructPlayer::onChangeProperty). The optional player arg targets another character;
+    // omitted = the command's owner (self).
+    public static string SetValueOwn(string key, long value)
+        => Invariant($"sv('{LuaEscape.Single(key)}',{value})");
+    public static string SetValuePlayer(string key, long value, string playerName)
+        => Invariant($"sv('{LuaEscape.Single(key)}',{value},'{LuaEscape.Single(playerName)}')");
+    public static string AddValueOwn(string key, long value)
+        => Invariant($"av('{LuaEscape.Single(key)}',{value})");
+    public static string AddValuePlayer(string key, long value, string playerName)
+        => Invariant($"av('{LuaEscape.Single(key)}',{value},'{LuaEscape.Single(playerName)}')");
+
+    // Notice / announce broadcasts (global; every online player sees them). Single text arg.
+    // Freeform text -> Lua double-quoted literal (text often contains apostrophes). The client
+    // routes by the @NOTICE/@NOTICE_LEFT/@NOTICE_RIGHT/@ANNOUNCE sender tag the server supplies.
+    public static string Notice(string text)
+        => Invariant($"notice(\"{LuaEscape.Double(text)}\")");
+    public static string NoticeLeft(string text)
+        => Invariant($"notice_left(\"{LuaEscape.Double(text)}\")");
+    public static string NoticeRight(string text)
+        => Invariant($"notice_right(\"{LuaEscape.Double(text)}\")");
+    public static string Announce(string text)
+        => Invariant($"announce(\"{LuaEscape.Double(text)}\")");
 }

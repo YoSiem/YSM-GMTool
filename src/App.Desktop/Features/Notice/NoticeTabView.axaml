@@ -1,0 +1,105 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:nt="clr-namespace:App.Desktop.Features.Notice"
+             x:Class="App.Desktop.Features.Notice.NoticeTabView"
+             x:DataType="nt:NoticeTabViewModel"
+             x:CompileBindings="False"
+             Background="{DynamicResource WindowBackground}">
+    <ScrollViewer>
+        <Grid Margin="12" ColumnDefinitions="*,340">
+
+            <!-- Left: builder -->
+            <StackPanel Grid.Column="0" Spacing="8" MinWidth="380" Margin="0,0,16,0">
+
+                <TextBlock Classes="sectionHeader" Text="Notice Builder" />
+                <Border Classes="sectionDivider" />
+
+                <StackPanel Spacing="2">
+                    <TextBlock Classes="fieldLabel" Text="Alignment / function" />
+                    <StackPanel Orientation="Horizontal" Spacing="12">
+                        <RadioButton GroupName="ntKind" Content="Center" IsChecked="{Binding IsCenter}" />
+                        <RadioButton GroupName="ntKind" Content="Left" IsChecked="{Binding IsLeft}" />
+                        <RadioButton GroupName="ntKind" Content="Right" IsChecked="{Binding IsRight}" />
+                        <RadioButton GroupName="ntKind" Content="Announce" IsChecked="{Binding IsAnnounce}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Spacing="2">
+                    <TextBlock Classes="fieldLabel" Text="Text (Enter = new line → &lt;BR&gt;)" />
+                    <TextBox AcceptsReturn="True" TextWrapping="Wrap" MinHeight="70"
+                             Text="{Binding Text}" />
+                </StackPanel>
+
+                <WrapPanel>
+                    <!-- Color -->
+                    <StackPanel Classes="field" Width="200">
+                        <CheckBox Content="Custom color" IsChecked="{Binding UseCustomColor}" />
+                        <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,4,0,0">
+                            <TextBox Width="92" IsEnabled="{Binding UseCustomColor}" Text="{Binding ColorHex}" />
+                            <Button MinHeight="0" Width="22" Height="22" Padding="0" Background="#FFEA00"
+                                    Command="{Binding PickColor}" CommandParameter="#FFEA00" ToolTip.Tip="Yellow (default)" />
+                            <Button MinHeight="0" Width="22" Height="22" Padding="0" Background="#FF3B30"
+                                    Command="{Binding PickColor}" CommandParameter="#FF3B30" ToolTip.Tip="Red" />
+                            <Button MinHeight="0" Width="22" Height="22" Padding="0" Background="#34C759"
+                                    Command="{Binding PickColor}" CommandParameter="#34C759" ToolTip.Tip="Green" />
+                            <Button MinHeight="0" Width="22" Height="22" Padding="0" Background="#0A84FF"
+                                    Command="{Binding PickColor}" CommandParameter="#0A84FF" ToolTip.Tip="Blue" />
+                            <Button MinHeight="0" Width="22" Height="22" Padding="0" Background="#FFFFFF"
+                                    Command="{Binding PickColor}" CommandParameter="#FFFFFF" ToolTip.Tip="White" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <!-- Size -->
+                    <StackPanel Classes="field" Width="130">
+                        <CheckBox Content="Custom size" IsChecked="{Binding UseCustomSize}" />
+                        <NumericUpDown Minimum="6" Maximum="60" Increment="1" FormatString="0"
+                                       Margin="0,4,0,0" IsEnabled="{Binding UseCustomSize}"
+                                       Value="{Binding FontSize}" />
+                    </StackPanel>
+
+                    <!-- Bold -->
+                    <StackPanel Classes="field" Width="80">
+                        <CheckBox Content="Bold" IsChecked="{Binding Bold}" />
+                    </StackPanel>
+                </WrapPanel>
+
+                <TextBlock Classes="sectionHeader" Text="Command" Margin="0,8,0,0" />
+                <Border Classes="sectionDivider" />
+                <TextBox IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap"
+                         FontFamily="Consolas, monospace" MinHeight="46"
+                         Text="{Binding Command}" />
+                <TextBlock Foreground="{DynamicResource MutedForeground}" FontSize="11"
+                           Text="Global broadcast. Client default: yellow (notice) / green (announce), size 13, centered." />
+
+                <Button Classes="primary" Content="Copy Command to Clipboard"
+                        Command="{Binding CopyCommand}" HorizontalAlignment="Left" Margin="0,4,0,0" />
+            </StackPanel>
+
+            <!-- Right: live preview -->
+            <StackPanel Grid.Column="1">
+                <TextBlock Classes="fieldLabel" Text="Preview" />
+                <Border CornerRadius="8" Height="240" Margin="0,4,0,0"
+                        BorderBrush="{DynamicResource Border}" BorderThickness="1" ClipToBounds="True">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                            <GradientStop Color="#2C3A4F" Offset="0" />
+                            <GradientStop Color="#3A5C4A" Offset="0.45" />
+                            <GradientStop Color="#243042" Offset="1" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <TextBlock Text="{Binding PreviewText}"
+                               Foreground="{Binding PreviewBrush}"
+                               FontSize="{Binding PreviewFontSize}"
+                               FontWeight="{Binding PreviewFontWeight}"
+                               TextAlignment="{Binding PreviewAlignment}"
+                               TextWrapping="Wrap"
+                               VerticalAlignment="Top"
+                               Margin="14,22,14,14" />
+                </Border>
+                <TextBlock Foreground="{DynamicResource MutedForeground}" FontSize="11" Margin="0,8,0,0"
+                           TextWrapping="Wrap"
+                           Text="Preview reflects color / size / bold / alignment / line breaks. Manual tags typed in the text are sent verbatim but not rendered here." />
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

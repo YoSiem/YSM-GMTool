@@ -2,7 +2,7 @@ using System.Globalization;
 
 namespace App.Desktop.Features.Items;
 
-/// <summary>Wear-slot dropdown entries (verbatim port of the WinForms <c>WearSlotItems</c> list).</summary>
+/// <summary>Wear-slot dropdown entries.</summary>
 public static class ItemsWearSlots
 {
     public static readonly string[] All =

@@ -16,7 +16,6 @@ namespace App.Desktop.Features.Playerchecker;
 /// <summary>
 /// Playerchecker tab: live (never cached) character search with SQL-side filtering. The selected
 /// character's inventory / warehouse opens in a separate pop-out window (with optional item icons).
-/// Ported from the WinForms <c>PlayerCheckerActionsControl</c> + <c>MainForm</c> playerchecker handlers.
 /// </summary>
 public sealed class PlayercheckerTabViewModel : TabModuleViewModel
 {
