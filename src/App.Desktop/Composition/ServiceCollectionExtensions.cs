@@ -14,11 +14,10 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddGmTool(this IServiceCollection s, string appDir)
     {
-        var queryFile = Path.Combine(AppContext.BaseDirectory, "Config", "queries.json");
         var settingsFile = Path.Combine(appDir, "settings.json");
 
         // Core services
-        s.AddSingleton<IQueryStore>(_ => new FileQueryStore(queryFile));
+        s.AddSingleton<IQueryStore, HardcodedQueryStore>();
         s.AddSingleton<IAppSettingsService>(_ => new JsonAppSettingsService(settingsFile));
         s.AddSingleton<INameNormalizer, SearchNameNormalizer>();
         s.AddSingleton<IConnectionStringBuilderService, DefaultConnectionStringBuilderService>();
