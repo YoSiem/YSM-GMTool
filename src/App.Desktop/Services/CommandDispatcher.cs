@@ -4,9 +4,9 @@ namespace App.Desktop.Services;
 
 public sealed class CommandDispatcher(IClipboardService clipboard, IAppSettingsHolder settings) : ICommandDispatcher
 {
-    public Task DispatchAsync(string luaCommand) => clipboard.SetTextAsync(ApplyRunPrefix(luaCommand));
+    public Task DispatchAsync(string luaCommand) => clipboard.SetTextAsync(Format(luaCommand));
 
-    private string ApplyRunPrefix(string command)
+    public string Format(string command)
     {
         if (!settings.Current.AppendGeneratedCommands)
         {

@@ -14,5 +14,6 @@ public enum QueryEntity
     Skills,
     States,
     Npc,
-    Summons
+    Summons,
+    ItemEffects
 }

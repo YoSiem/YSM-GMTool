@@ -105,6 +105,13 @@ public sealed class GameDataRepository(IQueryStore queryStore, DbConnectionFacto
         CancellationToken cancellationToken = default)
         => QueryAsync<SummonRecord>(provider, connectionString, QueryEntity.Summons, queryTokens, null, cancellationToken);
 
+    public Task<IReadOnlyList<ItemEffectRecord>> GetItemEffectsAsync(
+        DatabaseProvider provider,
+        string connectionString,
+        IReadOnlyDictionary<string, string>? queryTokens = null,
+        CancellationToken cancellationToken = default)
+        => QueryAsync<ItemEffectRecord>(provider, connectionString, QueryEntity.ItemEffects, queryTokens, null, cancellationToken);
+
     public async Task TestConnectionAsync(DatabaseProvider provider, string connectionString, CancellationToken cancellationToken = default)
     {
         await using var connection = _connectionFactory.Create(provider, connectionString);

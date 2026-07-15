@@ -2,7 +2,7 @@
 
 A Windows desktop GM utility for Rappelz private servers — browse game data, inspect player inventories/warehouses, and generate Lua commands directly to clipboard.
 
-Built with WinForms on .NET 10, with a native dark theme and fully async database access (MSSQL + MySQL).
+Built with Avalonia + ReactiveUI on .NET 10, with a native dark theme and fully async database access (MSSQL + MySQL).
 
 ---
 
@@ -23,20 +23,17 @@ Built with WinForms on .NET 10, with a native dark theme and fully async databas
 ```bash
 git clone https://github.com/your-org/YSM-GMTool.git
 cd YSM-GMTool
-dotnet restore YSM-GMTool.slnx
-dotnet run --project src/App.WinForms/App.WinForms.csproj
+dotnet run --project src/App.Desktop/App.Desktop.csproj
 ```
 
-**Option B — Release build (auto-publish to YSMReleasedTools)**
+**Option B — Clean publish (for distribution)**
 ```bash
-dotnet build src/App.WinForms/App.WinForms.csproj -c Release
+pwsh scripts/publish-release.ps1 -PublishDir "C:\path\to\output\GM Tool"
 ```
-*The Release build automatically publishes a clean executable output to `%USERPROFILE%\Documents\YSMReleasedTools\GM-Tool\`. If the build fails with a file-lock error, close `GM Tool.exe` from that folder and retry.*
-
-**Option C — Explicit clean publish**
-```bash
-powershell -ExecutionPolicy Bypass -File .\scripts\publish-release.ps1
-```
+*Publishes a framework-dependent win-x64 build (`GM Tool.exe`). The script wipes + recreates the
+target folder and auto-kills any `GM Tool.exe` running from it. Without `-PublishDir` it defaults
+to `%USERPROFILE%\Documents\YSMReleasedTools\GM-Tool\`. If publish fails on a file lock, close any
+running `GM Tool.exe` launched from another folder and retry.*
 
 ---
 
@@ -107,11 +104,11 @@ Browse NPCs with contact script search. Generate add/show/warp commands. Browse 
 
 ### General Features & Quality of Life
 - **Double-Click Export:** Double-clicking any cell inside a database datagrid instantly copies its string value to the OS clipboard.
-- **In-Memory Limits Toggle:** Limit DataGridView results strictly to 1000 items (via General Options tab) to ensure high-performance rendering while keeping the entire database subset fully searchable.
+- **In-Memory Limits Toggle:** Limit data-grid results strictly to 1000 items (via General Options tab) to ensure high-performance rendering while keeping the entire database subset fully searchable.
 - **Real-time Filtering Toggle:** Choose between search-as-you-type debounced filtering, or exact Search button submissions.
 
 ### Command Generation & Sidebar
-- Every action builds a Lua command from a configurable `lua_commands.json` template and copies it to clipboard.
+- Every action builds a Lua command (hardcoded builders in `src/App.Core/Commands/LuaCommands.cs`) and copies it to the clipboard.
 - Optional `/run` prefix: when **Append /run to commands** is checked, the `/run ` prefix is added to all non-comment commands.
 - Manage a list of target players (add/remove from the right sidebar) to use as targets for multi-player commands.
 
@@ -119,9 +116,9 @@ Browse NPCs with contact script search. Generate add/show/warp commands. Browse 
 
 ## ⚙️ Configuration
 
-### SQL Queries — `src/App.WinForms/Config/queries.json`
+### SQL Queries — `src/App.Desktop/Config/queries.json`
 
-Queries are grouped by provider (`MSSQL`, `MySQL`) and entity key. Tokens in `{{DougleBraces}}` are replaced at runtime from Settings → Table Names.
+Queries are grouped by provider (`MSSQL`, `MySQL`, and `Sqlite` for offline snapshots) and entity key. Tokens in `{{DoubleBraces}}` are replaced at runtime from Settings → Table Names.
 
 | Token | Maps to |
 |-------|---------|
@@ -138,9 +135,9 @@ Queries are grouped by provider (`MSSQL`, `MySQL`) and entity key. Tokens in `{{
 
 Parameterized queries use Dapper named parameters (`@SearchTerm`, `@OwnerId`, `@AccountName`).
 
-### Lua Templates — `src/App.WinForms/Config/lua_commands.json`
+### Lua Commands
 
-Command templates use `{{placeholder}}` substitution. Edit freely to match your server's Lua API without recompiling.
+Lua command strings are built in code (`src/App.Core/Commands/LuaCommands.cs`) — there is no external template file. Edit the builders and rebuild to change command shapes.
 
 ### Environment Variables (`.env`)
 
@@ -151,7 +148,7 @@ YSM_DB_PROVIDER=MSSQL
 YSM_DB_CONNECTION_STRING=Server=localhost;Database=ArcadiaDB;User Id=sa;Password=...;TrustServerCertificate=True
 ```
 
-`.env` is gitignored. On Release auto-publish, the root `.env` (if present) is copied to the publish folder.
+`.env` is gitignored.
 
 ---
 
@@ -168,12 +165,11 @@ YSM_DB_CONNECTION_STRING=Server=localhost;Database=ArcadiaDB;User Id=sa;Password
 
 ```
 src/
-  App.Core/         # Models, interfaces, enums, query/lua stores, normalizer
-  App.Data/         # Dapper repository, DB connection factory
-  App.WinForms/     # WinForms UI: forms, controls, presenters, config
+  App.Core/         # Pure logic: models, abstractions, enums, Lua command builders, catalogs
+  App.Data/         # Dapper repositories, DB connection factory, snapshot export
+  App.Desktop/      # Avalonia UI: tabs (Features/*), shell, services, theme
     Config/
-      queries.json        # SQL queries per provider and entity
-      lua_commands.json   # Lua command templates
+      queries.json  # SQL queries per provider and entity
 ```
 
 ---
@@ -182,12 +178,13 @@ src/
 
 | Component | Library |
 |-----------|---------|
-| UI framework | WinForms (.NET 10) |
+| UI framework | Avalonia 11 + ReactiveUI (.NET 10) |
 | ORM | Dapper |
 | SQL Server | Microsoft.Data.SqlClient |
 | MySQL | MySqlConnector |
+| Offline snapshot | Microsoft.Data.Sqlite |
 | Logging | Serilog (file sink) |
-| Icons | FontAwesome.Sharp |
+| Icons | Projektanker.Icons.Avalonia (FontAwesome) |
 
 ---
 
@@ -199,4 +196,4 @@ src/
 | Empty grid after searching | Verify provider, connection string, and token values in Settings → Table Names |
 | PlayerChecker shows no results | Make sure `Telecaster Name` and `Arcadia Name` are set correctly; the queries are cross-database |
 | Warehouse items not loading | Verify `Auth Name` token is set and the account table is accessible |
-| Release publish fails (file lock) | Close `GM Tool.exe` from `%USERPROFILE%\Documents\YSMReleasedTools\GM-Tool\` and rebuild |
+| Release publish fails (file lock) | Close any running `GM Tool.exe` launched from the publish folder, then re-run the publish script |

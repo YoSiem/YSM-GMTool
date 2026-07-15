@@ -101,7 +101,6 @@ public sealed class ItemsTabViewModel : TabModuleViewModel
             .Subscribe(r =>
             {
                 ItemId = r!.ItemId;
-                ItemName = r.NameEn;
                 ModifyItemCode = r.ItemId;
             });
 
@@ -165,14 +164,6 @@ public sealed class ItemsTabViewModel : TabModuleViewModel
     {
         get => _itemId;
         set => this.RaiseAndSetIfChanged(ref _itemId, value);
-    }
-
-    private string _itemName = string.Empty;
-
-    public string ItemName
-    {
-        get => _itemName;
-        set => this.RaiseAndSetIfChanged(ref _itemName, value);
     }
 
     private int _amount = 1;

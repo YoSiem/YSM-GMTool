@@ -16,7 +16,7 @@ namespace App.Desktop.Features.Monster;
 
 /// <summary>
 /// Monster spawn tab: a single "Create Command" that builds a regenerate / add_npc Lua string,
-/// with mode-driven input enablement ported from the WinForms <c>MonsterActionsControl</c>.
+/// with mode-driven input enablement.
 /// </summary>
 public sealed class MonsterTabViewModel : TabModuleViewModel
 {
@@ -119,7 +119,7 @@ public sealed class MonsterTabViewModel : TabModuleViewModel
         {
             this.RaiseAndSetIfChanged(ref _spawnMode, value);
 
-            // Mode change can disable lifetime; mirror the WinForms ToggleInputsByMode reset.
+            // Mode change can disable lifetime; reset accordingly.
             if (!IsUseLifetimeEnabled && UseLifetime)
             {
                 UseLifetime = false;

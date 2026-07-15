@@ -1,7 +1,7 @@
 using System;
 using App.Core.Abstractions;
-using App.Core.Enums;
 using App.Core.Models;
+using App.Core.Services;
 using App.Desktop.Infrastructure;
 
 namespace App.Desktop.Composition;
@@ -23,25 +23,17 @@ internal static class SettingsBootstrap
         settings.EntityIconsPath ??= string.Empty;
     }
 
+    /// <summary>
+    /// Seeds the DB connection from the <c>YSM_DB_*</c> environment (.env) values — but only as a
+    /// first-run fallback. A connection already saved in settings.json is authoritative and is never
+    /// overridden here, so a stale/relocated .env can't revert the user's saved connection on startup.
+    /// </summary>
     public static void ApplyEnvironmentDefaults(
         AppSettings settings,
         IConnectionStringBuilderService connectionStringBuilder)
-    {
-        var providerRaw = Environment.GetEnvironmentVariable(DotEnv.DbProviderEnvKey);
-        if (!string.IsNullOrWhiteSpace(providerRaw)
-            && Enum.TryParse<DatabaseProvider>(providerRaw, ignoreCase: true, out var provider))
-        {
-            settings.Provider = provider;
-        }
-
-        var connectionString = Environment.GetEnvironmentVariable(DotEnv.DbConnectionStringEnvKey);
-        if (!string.IsNullOrWhiteSpace(connectionString))
-        {
-            settings.ConnectionString = connectionString.Trim();
-            if (connectionStringBuilder.TryParse(settings.Provider, settings.ConnectionString, out var parsed))
-            {
-                settings.Connection = parsed;
-            }
-        }
-    }
+        => AppSettingsEnvironmentSeeder.SeedFromEnvironment(
+            settings,
+            Environment.GetEnvironmentVariable(DotEnv.DbProviderEnvKey),
+            Environment.GetEnvironmentVariable(DotEnv.DbConnectionStringEnvKey),
+            connectionStringBuilder);
 }

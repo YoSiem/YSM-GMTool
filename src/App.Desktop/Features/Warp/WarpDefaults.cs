@@ -4,8 +4,8 @@ using App.Core.Models;
 namespace App.Desktop.Features.Warp;
 
 /// <summary>
-/// The built-in warp locations seeded into <c>AppSettings.WarpLocations</c> when none are stored.
-/// Copied verbatim from the WinForms <c>MainForm.GetDefaultWarpLocations</c> (31 entries).
+/// The built-in warp locations seeded into <c>AppSettings.WarpLocations</c> when none are stored
+/// (31 entries).
 /// </summary>
 public static class WarpDefaults
 {

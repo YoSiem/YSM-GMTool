@@ -34,6 +34,7 @@ public static class ServiceCollectionExtensions
         s.AddSingleton<ICommandDispatcher, CommandDispatcher>();
         s.AddSingleton<ConnectionStringResolver>();
         s.AddSingleton<IInventoryWindowService, InventoryWindowService>();
+        s.AddSingleton<IItemEffectPickerService, ItemEffectPickerService>();
 
         // Shell
         s.AddSingleton<Shell.MainWindow>();

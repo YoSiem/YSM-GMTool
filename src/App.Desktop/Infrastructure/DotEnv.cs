@@ -3,9 +3,8 @@ using Serilog;
 namespace App.Desktop.Infrastructure;
 
 /// <summary>
-/// Discovers and loads a <c>.env</c> file into process environment variables.
-/// Ported from the WinForms <c>Program.LoadDotEnvIfPresent</c>/<c>FindDotEnvPath</c>:
-/// same search roots (base dir, current dir, app dir, plus parent walk), KEY=VALUE parse,
+/// Discovers and loads a <c>.env</c> file into process environment variables:
+/// search roots (base dir, current dir, app dir, plus parent walk), KEY=VALUE parse,
 /// quote-stripping, and <see cref="Environment.SetEnvironmentVariable(string, string?)"/>.
 /// </summary>
 public static class DotEnv

@@ -73,6 +73,7 @@ public sealed class FileQueryStore : IQueryStore
         QueryEntity.States => "States",
         QueryEntity.Npc => "NPC",
         QueryEntity.Summons => "Summons",
+        QueryEntity.ItemEffects => "ItemEffects",
         _ => throw new ArgumentOutOfRangeException(nameof(entity), entity, "Unsupported query entity.")
     };
 }

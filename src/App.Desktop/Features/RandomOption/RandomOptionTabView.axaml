@@ -1,0 +1,153 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ro="clr-namespace:App.Desktop.Features.RandomOption"
+             x:Class="App.Desktop.Features.RandomOption.RandomOptionTabView"
+             x:DataType="ro:RandomOptionTabViewModel"
+             x:CompileBindings="False"
+             Background="{DynamicResource WindowBackground}">
+    <ScrollViewer>
+        <Grid ColumnDefinitions="*,Auto,Auto" Margin="12" >
+            <!-- Left: builder form -->
+            <StackPanel Grid.Column="0" Spacing="8" MinWidth="430">
+
+                <TextBlock Classes="sectionHeader" Text="Random Type" />
+                <Border Classes="sectionDivider" />
+                <StackPanel Orientation="Horizontal" Spacing="14">
+                    <RadioButton GroupName="roKind" Content="Stat-Effect" IsChecked="{Binding IsStatMode}" />
+                    <RadioButton GroupName="roKind" Content="Socket-Effect" IsChecked="{Binding IsSocketMode}" />
+                    <RadioButton GroupName="roKind" Content="Item-Effect" IsChecked="{Binding IsItemMode}" />
+                </StackPanel>
+
+                <WrapPanel>
+                    <StackPanel Classes="field" Width="220">
+                        <TextBlock Classes="fieldLabel" Text="Equippart (equipped)" />
+                        <ComboBox HorizontalAlignment="Stretch"
+                                  ItemsSource="{Binding Equipparts}"
+                                  SelectedItem="{Binding SelectedEquippart}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Label}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Classes="field" Width="90">
+                        <TextBlock Classes="fieldLabel" Text="Line" />
+                        <ComboBox HorizontalAlignment="Stretch"
+                                  ItemsSource="{Binding Lines}"
+                                  SelectedItem="{Binding SelectedLine}" />
+                    </StackPanel>
+                </WrapPanel>
+
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <RadioButton GroupName="roTarget" Content="Own" IsChecked="{Binding !ApplyToOther}" />
+                    <RadioButton GroupName="roTarget" Content="Other" IsChecked="{Binding ApplyToOther}" />
+                </StackPanel>
+
+                <!-- Stat-only options -->
+                <StackPanel Spacing="8" IsVisible="{Binding IsStatMode}">
+                    <WrapPanel>
+                        <StackPanel Classes="field" Margin="0,0,16,0">
+                            <TextBlock Classes="fieldLabel" Text="Options" />
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <RadioButton GroupName="roPart" Content="Part 1" IsChecked="{Binding !IsPart2}" />
+                                <RadioButton GroupName="roPart" Content="Part 2" IsChecked="{Binding IsPart2}" />
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Classes="field">
+                            <TextBlock Classes="fieldLabel" Text="OptTypes" />
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <RadioButton GroupName="roOpt" Content="Fix Value" IsChecked="{Binding !IsPercentage}" />
+                                <RadioButton GroupName="roOpt" Content="Percentage" IsChecked="{Binding IsPercentage}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </WrapPanel>
+
+                    <Button Content="Import options" Command="{Binding ImportOptions}" HorizontalAlignment="Left" />
+                </StackPanel>
+
+                <!-- Socket-only: drives Options -->
+                <WrapPanel IsVisible="{Binding IsSocketMode}">
+                    <StackPanel Classes="field" Width="120">
+                        <TextBlock Classes="fieldLabel" Text="Socket Type" />
+                        <ComboBox HorizontalAlignment="Stretch"
+                                  ItemsSource="{Binding SocketTypes}"
+                                  SelectedItem="{Binding SocketType}" />
+                    </StackPanel>
+                </WrapPanel>
+
+                <!-- Item-only -->
+                <StackPanel Spacing="8" IsVisible="{Binding IsItemMode}">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Content="Pick effect..." Command="{Binding PickEffect}" />
+                        <TextBlock VerticalAlignment="Center"
+                                   Foreground="{DynamicResource MutedForeground}"
+                                   Text="{Binding EffectText}" />
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Type / Options / Value row -->
+                <WrapPanel>
+                    <StackPanel Classes="field" Width="90">
+                        <TextBlock Classes="fieldLabel" Text="Type" />
+                        <TextBox IsReadOnly="True" Text="{Binding Type}" />
+                    </StackPanel>
+                    <StackPanel Classes="field" Width="180">
+                        <TextBlock Classes="fieldLabel" Text="Options" />
+                        <TextBox IsReadOnly="True" Text="{Binding OptionsDisplay}" />
+                    </StackPanel>
+                    <StackPanel Classes="field" Width="160" IsVisible="{Binding IsStatMode}">
+                        <TextBlock Classes="fieldLabel" Text="Value" />
+                        <NumericUpDown Minimum="-1000000000" Maximum="1000000000"
+                                       Increment="1" FormatString="0.######"
+                                       Value="{Binding StatValue}" />
+                    </StackPanel>
+                    <StackPanel Classes="field" Width="160" IsVisible="{Binding IsItemMode}">
+                        <TextBlock Classes="fieldLabel" Text="Value" />
+                        <NumericUpDown Minimum="-1000000000" Maximum="1000000000"
+                                       Increment="1" FormatString="0.######"
+                                       Value="{Binding ItemValue}" />
+                    </StackPanel>
+                    <StackPanel Classes="field" Width="120" IsVisible="{Binding IsSocketMode}">
+                        <TextBlock Classes="fieldLabel" Text="Amount" />
+                        <ComboBox HorizontalAlignment="Stretch"
+                                  ItemsSource="{Binding SocketAmounts}"
+                                  SelectedItem="{Binding SocketAmount}" />
+                    </StackPanel>
+                </WrapPanel>
+
+                <TextBlock Classes="sectionHeader" Text="Command" Margin="0,8,0,0" />
+                <Border Classes="sectionDivider" />
+                <TextBox IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap"
+                         FontFamily="Consolas, monospace" MinHeight="46"
+                         Text="{Binding Command}" />
+                <TextBlock Foreground="{DynamicResource MutedForeground}" FontSize="11"
+                           Text="set_item_random_option(get_wear_item_handle(SLOT[,'PLAYER']),LINE,TYPE,OPTIONS,VALUE)" />
+
+                <Button Classes="primary" Content="Copy Command to Clipboard"
+                        Command="{Binding CopyCommand}" HorizontalAlignment="Left" Margin="0,4,0,0" />
+            </StackPanel>
+
+            <Border Grid.Column="1" Classes="sectionDivider" Width="1" Margin="14,0"
+                    IsVisible="{Binding IsStatMode}" />
+
+            <!-- Right: stat checkbox grid -->
+            <StackPanel Grid.Column="2" MinWidth="320" IsVisible="{Binding IsStatMode}">
+                <TextBlock Classes="sectionHeader" Text="Stat flags" />
+                <Border Classes="sectionDivider" />
+                <ItemsControl ItemsSource="{Binding Flags}" Margin="0,6,0,0">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="2" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Margin="0,1" Content="{Binding Label}" IsChecked="{Binding IsChecked}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

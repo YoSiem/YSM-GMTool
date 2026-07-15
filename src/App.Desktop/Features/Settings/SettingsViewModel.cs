@@ -17,8 +17,7 @@ namespace App.Desktop.Features.Settings;
 /// <summary>
 /// View model for the Settings dialog. Edits a working <see cref="AppSettings.Clone"/>; on Save it
 /// validates, builds the connection string, writes the <c>.env</c>, applies the result to the live
-/// settings holder (re-seeding player context + icon cache), and persists. Ports the WinForms
-/// <c>SettingsForm</c>.
+/// settings holder (re-seeding player context + icon cache), and persists.
 /// </summary>
 public sealed class SettingsViewModel : ReactiveObject
 {
